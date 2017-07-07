@@ -1,6 +1,5 @@
 image: 
-    node:
-        6.9.1
+    node:6.9.1
 
 cache:
     paths:
