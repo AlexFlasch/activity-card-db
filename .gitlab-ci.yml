@@ -1,3 +1,9 @@
+image: node:6.9.1
+
+cache:
+    paths:
+        - node_modules/
+
 unit:
     script:
         - npm install
@@ -7,8 +13,3 @@ e2e:
     script:
         - npm install
         - npm run e2e
-
-all_tests:
-    script:
-        - npm install
-        - npm run test
