@@ -8,11 +8,11 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: require('@/components/Home/Home.vue'),
+            component: require('@/pages/Home/Home.vue'),
         },
         {
             path: '*',
             redirect: '/',
-        }
-    ]
+        },
+    ],
 });

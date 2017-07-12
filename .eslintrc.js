@@ -15,8 +15,14 @@ module.exports = {
     plugins: ['html'],
     'rules': {
         "indent": [
-            "error", 2
+            "error", 4
         ],
+        'keyword-spacing': ['error', { 'overrides': {
+            'if': { 'after': false },
+            'for': { 'after': false },
+            'while': { 'after': false },
+            'from': { 'before': true, 'after': true },
+        } }],
         'global-require': 0,
         'import/no-unresolved': 0,
         'no-param-reassign': 0,

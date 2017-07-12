@@ -1,5 +1,7 @@
-<style scoped lang="scss">
-
+<style lang="scss">
+    body {
+        background-color: #DADFE1;
+    }
 </style>
 
 <template>
@@ -10,6 +12,6 @@
 
 <script>
     export default {
-        name: 'activity-card-tracker'
-    }
+        name: 'activity-card-tracker',
+    };
 </script>
