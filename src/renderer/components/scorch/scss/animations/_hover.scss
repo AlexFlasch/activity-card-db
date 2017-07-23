@@ -1,0 +1,91 @@
+@import '../util/functions';
+@import '../util/mixins';
+@import '../settings';
+
+@mixin hover-rise() {
+    // default transform state before hover
+    & {
+        transform: translateY(0) scale(1);
+
+        transition: $defaultTransitionProps;
+    }
+
+    &:hover {
+        // move element slightly up
+        // make it appear to rise off the parent
+        transform: translateY(-1px) scale(1.01);
+
+        transition: $defaultTransitionProps;
+    }
+}
+
+// $shadow is a map of box-shadow props
+//
+// shadow-rise grows an outer shadow on hover to
+// make the element appear to rise
+@mixin shadow-rise($shadow) {
+
+    $dropShadow: nth($shadow, 1);
+    $glowShadow: nth($shadow, 2);
+
+    // default box-shadow before hover
+    & {
+        @include multi-box-shadow(shadow-map-to-props($dropShadow),
+            shadow-map-to-props($glowShadow));
+
+        transition: $defaultTransitionProps;
+    }
+
+    &:hover {
+        // grow shadow to make element
+        // appear to rise
+
+        $vOffset: get-val($dropShadow, 'v') + 1px;
+        $spread: get-val($dropShadow, 's') + 1px;
+
+        $dropShadow: set-val($dropShadow, 'v', $vOffset);
+        $dropShadow: set-val($dropShadow, 's', $spread);
+
+        @include multi-box-shadow(shadow-map-to-props($dropShadow),
+            shadow-map-to-props($glowShadow));
+
+        transition: $defaultTransitionProps;
+    }
+}
+
+// $shadow is a map of box-shadow props
+// $color is the background-color of the element
+//
+// inner-glow makes the element fade to a lighter color
+// of its background color on hover, while keeping its
+// initial inset box-shadow, but saturating it in order
+// to make it appear as though its glowing
+@mixin inner-glow($shadow, $color) {
+
+    $dropShadow: nth($shadow, 1);
+    $glowShadow: nth($shadow, 2);
+
+    // default inset box-shadow before hover
+    & {
+        @include multi-box-shadow(shadow-map-to-props($dropShadow),
+            shadow-map-to-props($glowShadow));
+
+        transition: $defaultTransitionProps;
+    }
+
+    &:hover {
+        // lighten background-color
+        // .lighten(0.15).saturate(0.25)
+        background-color: saturate(lighten($color, 10%), 25%);
+
+        // saturate inset box-shadow
+        // .saturate(0.5)
+        $shadowColor: saturate(get-val($glowShadow, 'c'), 35%);
+        $glowShadow: set-val($glowShadow, 'c', $shadowColor);
+
+        @include multi-box-shadow(shadow-map-to-props($dropShadow),
+            shadow-map-to-props($glowShadow));
+
+        transition: $defaultTransitionProps;
+    }
+}

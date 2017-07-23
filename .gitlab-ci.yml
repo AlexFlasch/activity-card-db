@@ -1,17 +1,20 @@
-image: 
-    node:latest
-
-cache:
-    paths:
-        - node_modules/
-
-before_script:
-    - npm install
-
-unit:
-    script:
-        - npm run unit
-
-e2e:
-    script:
-        - npm run e2e
+# gitlab-ci currently doesn't properly run tests.
+# turn off ci for now so we don't get emails every push.
+#
+# image:
+#     node:latest
+#
+# cache:
+#     paths:
+#         - node_modules/
+#
+# before_script:
+#     - npm install
+#
+# unit:
+#     script:
+#         - npm run unit
+#
+# e2e:
+#     script:
+#         - npm run e2e

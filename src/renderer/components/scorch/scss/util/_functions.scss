@@ -1,0 +1,83 @@
+@function last-index($list, $value) {
+    // apparently achieves better performance
+    // at the cost of being gross to look at
+    @for $i from length($list) * -1 through -1 {
+        @if nth($list, abs($i)) == $value {
+            @return abs($i);
+        }
+    }
+
+    @return null;
+}
+
+@function is-last-element($list, $value) {
+    @return nth($list, last-index($list, $value)) == $value;
+}
+
+@function get-val($map, $key) {
+    // convert any lists of 1 map to a map
+    @if type-of($map) == 'list' {
+        $map: nth($map, 1);
+    }
+    @elseif type-of($map) != 'map' {
+        @warn '$map is not a map. $map is of type: #{type-of($map)}';
+    }
+
+    @if map-has-key($map, $key) {
+        @return map-get($map, $key);
+    }
+    @else {
+        @warn 'Map #{$map} has no key #{$key}';
+    }
+}
+
+@function set-val($map, $key, $val) {
+    // if $map is a list, take the first element
+    @if type-of($map) == 'list' {
+        $map: nth($map, 1);
+
+        @if type-of($map) != 'map' {
+            @warn '$map is not a map. $map is of type: #{type-of($map)}';
+        }
+    }
+    @elseif type-of($map) != 'map' {
+        @warn '$map is not a map. $map is of type: #{type-of($map)}';
+    }
+
+    $new: ($key: $val);
+    @return map-merge($map, $new);
+}
+
+@function create-shadow-map($hOffset: 0px, $vOffset: 3px, $blur: 15px, $spread: 0px, $color: rgba(108, 122, 137, 0.4), $inset: '') {
+    @return (
+        i: $inset,
+        h: $hOffset,
+        v: $vOffset,
+        b: $blur,
+        s: $spread,
+        c: $color
+    );
+}
+
+@function shadow-map-to-props($shadow) {
+    $inset: get-val($shadow, 'i');
+    $hOffset: get-val($shadow, 'h');
+    $vOffset: get-val($shadow, 'v');
+    $blur: get-val($shadow, 'b');
+    $spread: get-val($shadow, 's');
+    $color: get-val($shadow, 'c');
+
+    @return #{$inset} #{$hOffset} #{$vOffset} #{$blur} #{$spread} #{$color};
+}
+
+@function shadow-maps-to-props($shadows...) {
+    $shadow-props: ();
+
+    @each $map in $shadows {
+        $shadow-props: append($shadow-props, shadow-map-to-props($map));
+    }
+
+    @warn '$shadow-props: #{$shadow-props}';
+
+    @return $shadow-props;
+}

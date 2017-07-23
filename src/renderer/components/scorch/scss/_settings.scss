@@ -1,0 +1,31 @@
+// --- Colors ---
+$bodyBg: #DADFE1;
+$elementBg: #F2F1EF;
+
+$primaryColor: #446CB3;
+$secondaryColor: #9B59B6;
+$successColor: #26A65B;
+$infoColor: #59ABE3;
+$warningColor: #F27935;
+$errorColor: #F64747;
+$defaultColor: #E4F1FE;
+
+// --- Contexts ---
+$contexts: (
+    primary: $primaryColor,
+    secondary: $secondaryColor,
+    success: $successColor,
+    info: $infoColor,
+    warning: $warningColor,
+    error: $errorColor,
+    default: $defaultColor
+);
+
+// --- Fonts ---
+$fontFamily: '"Dosis", sans-serif';
+
+// --- Animations & Transitions ---
+$transitionProperty: all;
+$transitionDuration: .333s;
+$transitionTiming: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+$defaultTransitionProps: $transitionProperty $transitionDuration $transitionTiming;

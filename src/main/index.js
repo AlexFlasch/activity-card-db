@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron'; // eslint-disable-line
+import { app, BrowserWindow, ipcMain } from 'electron'; // eslint-disable-line
+import fs from 'fs';
 
 /**
 * Set `__static` path to static files in production
@@ -23,6 +24,9 @@ function createWindow() {
         width: 1000,
     });
 
+    const files = getCSVFiles();
+
+    mainWindow.webContents.send('csv-file-list', files);
     mainWindow.loadURL(winURL);
 
     mainWindow.on('closed', () => {
@@ -43,6 +47,16 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+function getCSVFiles() {
+    const files = fs.readdir('./../../static/csv/', (err, files) => {
+        debugger;
+        return files;
+    });
+
+    debugger;
+    return files;
+}
 
 /**
  * Auto Updater

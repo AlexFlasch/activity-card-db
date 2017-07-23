@@ -4,15 +4,13 @@
 
 <template>
     <div class="home-container">
-        <card>
-            <scorch-btn>Testing</scorch-btn>
-            <scorch-btn secondary>Testing 2</scorch-btn>
-        </card>
+        <scorch-btn context="primary">Testing</scorch-btn>
     </div>
 </template>
 
 <script>
     export default {
         name: 'Home',
+
     };
 </script>
