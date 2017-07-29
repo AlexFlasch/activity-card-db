@@ -32,7 +32,7 @@ export default {
             },
         });
 
-        // register all scorch components
+        // register all Scorch components
         Object.keys(components).forEach((el) => {
             Vue.component(components[el].name, components[el]);
         });

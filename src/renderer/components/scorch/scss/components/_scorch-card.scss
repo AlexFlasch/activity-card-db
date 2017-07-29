@@ -6,24 +6,33 @@
 
         border-width: 1px;
         border-style: solid;
-        border-color: darken($elementBg, 2.5%);
-        border-radius: 3px;
+        border-color: darken($elementBg, 0.5%);
+        border-radius: 10px;
 
         box-shadow: 0px 3px 15px 0px rgba(108, 122, 137, 0.4);
+
+        box-sizing: border-box;
+
+        transition: $defaultTransitionProps;
 
         &.depth-0 {
             background-color: transparent;
 
-            border: none;
+            border-color: darken($bodyBg, 7.5%);
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 10px;
 
-            border-radius: 3px;
+            box-shadow: none;
 
-            box-shadow: 0;
+            transition: $defaultTransitionProps;
         }
 
         @for $i from 1 through 5 {
-            .depth-#{$i} {
-                box-shadow: 0px 3px #{5 * $i + 15}px 0px rgba(108, 122, 137, 0.4);
+            &.depth-#{$i} {
+                box-shadow: 0px 3px #{5 * $i + 15}px 0px $elementShadowColor;
+
+                transition: $defaultTransitionProps;
             }
         }
     }

@@ -8,7 +8,7 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: require('@/pages/Home/Home.vue'),
+            component: require('@/pages/Home.vue'),
         },
         {
             path: '*',

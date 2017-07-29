@@ -3,7 +3,7 @@
 </style>
 
 <template>
-    <div class="card-container">
+    <div class="scorch card-container" :class="classes">
         <slot></slot>
     </div>
 </template>
@@ -13,8 +13,24 @@
         name: 'card',
         props: {
             depth: {
-                type: Number,
                 required: false,
+                default: 1,
+                validator(val) {
+                    if(typeof val === 'string') {
+                        val = parseInt(val, 10);
+                    }
+
+                    return val <= 5 && val >= 0;
+                },
+            },
+        },
+        computed: {
+            classes() {
+                const depthClass = `depth-${this.depth}`;
+
+                return [
+                    depthClass,
+                ];
             },
         },
     };

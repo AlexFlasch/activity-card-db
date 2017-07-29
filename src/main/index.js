@@ -1,5 +1,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron'; // eslint-disable-line
 import fs from 'fs';
+import csv from 'csv';
+
+import csvColumns from './../../static/csv-columns.json';
 
 /**
 * Set `__static` path to static files in production
@@ -24,9 +27,6 @@ function createWindow() {
         width: 1000,
     });
 
-    const files = getCSVFiles();
-
-    mainWindow.webContents.send('csv-file-list', files);
     mainWindow.loadURL(winURL);
 
     mainWindow.on('closed', () => {
@@ -48,6 +48,10 @@ app.on('activate', () => {
     }
 });
 
+ipcMain.on('get-csv-files', () => {
+    return getCSVFiles();
+});
+
 function getCSVFiles() {
     const files = fs.readdir('./../../static/csv/', (err, files) => {
         debugger;
@@ -56,6 +60,52 @@ function getCSVFiles() {
 
     debugger;
     return files;
+}
+
+async function getCSVFile(fileName) {
+    const csvContents = fs.readFileSync(`./../../static/csv/${fileName}`);
+
+    // columns: true tells the parser to auto-discover the column names
+    // using the header line in the csv file
+    const parser = csv.parse(csvContents, { columns: true });
+
+    let csvArr = [];
+
+    parser.on('readable', () => {
+        const record = parser.read();
+
+        debugger;
+
+        // record will be null if it has reached the
+        // end of the readable stream
+        // as long as its not null, push the record
+        if(record) {
+            csvArr.push(record);
+        }
+    });
+
+    await parser.on('finish' () => {
+        parser.end();
+    })
+
+    return csvArr;
+}
+
+function generateCSVFile(fileName) {
+    // take all keys in the csv-columns.json file, join them
+    // into a single string with a comma separating each key's name.
+    const csvHeader = Object.keys(csvColumns).join(',');
+
+    return fs.writeFile(`./../../static/csv/${fileName}`, csvHeader, (err) => {
+        if(err) {
+            console.err(err);
+
+            // log error and let renderer know that something bad happened
+            return false;
+        }
+
+        return true;
+    });
 }
 
 /**

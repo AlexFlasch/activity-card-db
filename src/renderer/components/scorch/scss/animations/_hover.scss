@@ -23,7 +23,7 @@
 //
 // shadow-rise grows an outer shadow on hover to
 // make the element appear to rise
-@mixin shadow-rise($shadow) {
+@mixin hover-shadow-rise($shadow) {
 
     $dropShadow: nth($shadow, 1);
     $glowShadow: nth($shadow, 2);
@@ -60,7 +60,7 @@
 // of its background color on hover, while keeping its
 // initial inset box-shadow, but saturating it in order
 // to make it appear as though its glowing
-@mixin inner-glow($shadow, $color) {
+@mixin hover-inner-glow($shadow, $color) {
 
     $dropShadow: nth($shadow, 1);
     $glowShadow: nth($shadow, 2);

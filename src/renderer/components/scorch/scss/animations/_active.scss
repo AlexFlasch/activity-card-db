@@ -1,0 +1,56 @@
+@import '../util/functions';
+@import '../util/mixins';
+@import '../settings';
+
+// transform element to scale larger and move up
+// to give the illusion of it rising.
+// scale and translate are both larger than hover-rise
+@mixin active-rise() {
+
+    &:active {
+        transform: translateY(-2px) scale(1.02);
+
+        transition: $defaultTransitionProps;
+    }
+}
+
+// $shadows is a list of maps of shadow props
+//
+//
+@mixin active-shadow-rise($shadows) {
+
+    $dropShadow: nth($shadows, 1);
+    $glowShadow: nth($shadows, 2);
+
+    &:active {
+        $vOffset: get-val($dropShadow, 'v') + 2px;
+        $spread: get-val($dropShadow, 's') + 2px;
+
+        $dropShadow: set-val($dropShadow, 'v', $vOffset);
+        $dropShadow: set-val($dropShadow, 's', $spread);
+
+        @include multi-box-shadow(shadow-map-to-props($dropShadow),
+            shadow-map-to-props($glowShadow));
+
+        transition: $defaultTransitionProps;
+    }
+}
+
+// $shadows is a list of maps of shadow props
+// $color is the background-color of the element
+//
+// active inner glow is lighter to appear more
+// intense than the hover inner-glow
+@mixin active-inner-glow($shadows, $color) {
+
+    $dropShadow: nth($shadows, 1);
+    $glowShadow: nth($shadows, 2);
+
+    &:active {
+        // lighten background-color
+        // .lighten(0.15).saturate(0.25)
+        background-color: lighten(saturate($color, 25%), 15%);
+
+        transition: $defaultTransitionProps;
+    }
+}
