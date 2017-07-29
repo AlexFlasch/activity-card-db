@@ -48,10 +48,6 @@ app.on('activate', () => {
     }
 });
 
-ipcMain.on('get-csv-files', () => {
-    return getCSVFiles();
-});
-
 function getCSVFiles() {
     const files = fs.readdir('./../../static/csv/', (err, files) => {
         debugger;
@@ -69,7 +65,7 @@ async function getCSVFile(fileName) {
     // using the header line in the csv file
     const parser = csv.parse(csvContents, { columns: true });
 
-    let csvArr = [];
+    const csvArr = [];
 
     parser.on('readable', () => {
         const record = parser.read();
@@ -84,9 +80,7 @@ async function getCSVFile(fileName) {
         }
     });
 
-    await parser.on('finish' () => {
-        parser.end();
-    })
+    await parser.on('finish', () => parser.end());
 
     return csvArr;
 }
@@ -107,6 +101,12 @@ function generateCSVFile(fileName) {
         return true;
     });
 }
+
+ipcMain.on('get-csv-files', () => getCSVFiles());
+
+ipcMain.on('get-csv-file', (event, arg) => getCSVFile(arg));
+
+ipcMain.on('create-csv-file', (event, arg) => generateCSVFile(arg));
 
 /**
  * Auto Updater
