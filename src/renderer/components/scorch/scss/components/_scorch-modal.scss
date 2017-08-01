@@ -1,0 +1,71 @@
+@import "../settings";
+
+.scorch {
+    &.modal-backdrop {
+        position: fixed;
+
+        display: none;
+
+        top: 0;
+        left: 0;
+
+        z-index: -999;
+
+        width: 100vw;
+        height: 100vh;
+
+        background-color: $elementShadowColor;
+
+        opacity: 0;
+
+        transition: $defaultTransitionProps;
+
+        &.shown {
+            display: block;
+
+            z-index: 2;
+
+            opacity: 1;
+
+            transition: $defaultTransitionProps;
+        }
+    }
+
+    .modal-container {
+        position: absolute;
+
+        visibility: hidden;
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 998;
+
+        padding-left: 2.5vw;
+        padding-right: 2.5vw;
+        padding-top: 2.5vh;
+        padding-bottom: 2.5vh;
+
+        background-color: $elementBg;
+
+        border-radius: 10px;
+
+        box-shadow: 0px 3px 15px 0px rgba(108, 122, 137, 0.4);
+
+        opacity: 0;
+        filter: blur(15px);
+
+        &.shown {
+            visibility: visible;
+
+            z-index: 3;
+
+            opacity: 1;
+            filter: blur(0);
+
+            transition: $defaultTransitionProps;
+        }
+    }
+}

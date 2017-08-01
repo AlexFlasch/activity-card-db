@@ -1,4 +1,4 @@
-<style scoped="" lang="scss">
+<style scoped lang="scss">
     @import '../scss/components/scorch-card';
 </style>
 

@@ -13,10 +13,17 @@
 
         box-sizing: border-box;
 
+        padding-left: 2.5vw;
+        padding-right: 2.5vw;
+        padding-top: 2.5vh;
+        padding-bottom: 2.5vh;
+
         transition: $defaultTransitionProps;
 
         &.depth-0 {
             background-color: transparent;
+
+            color: darken($bodyBg, 30%);
 
             border-color: darken($bodyBg, 7.5%);
             border-width: 1px;
