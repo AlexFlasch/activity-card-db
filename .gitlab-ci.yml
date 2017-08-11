@@ -23,43 +23,34 @@ before_script:
 unit_test:
   stage: test
   script:
-  - npm test
+  - npm run unit
 
 e2e_test:
   stage: test
   script:
   - npm run e2e
 
-code_coverage:
-  stage: test
-  script:
-  - npm run coverage
-  artifacts:
-    paths:
-    - coverage/
-    name: "coverage_report"
-
-pages:
-  stage: bundle
-  cache:
-    paths:
-    - public/
-  only:
-  - master
-  script:
-  - npm install -g plato --no-progress --quiet --depth 0
-  - plato -r -d public src
-  artifacts:
-    paths:
-    - public
-    name: "plato_report"
+# pages:
+#   stage: bundle
+#   cache:
+#     paths:
+#     - public/
+#   only:
+#   - master
+#   script:
+#   - npm install -g plato --no-progress --quiet --depth 0
+#   - plato -r -d public src
+#   artifacts:
+#     paths:
+#     - public
+#     name: "plato_report"
 
 release:
   stage: bundle
   only:
   - master
   script:
-  - npm run release
+  - npm run build
   artifacts:
     paths:
     - dist/*.deb
