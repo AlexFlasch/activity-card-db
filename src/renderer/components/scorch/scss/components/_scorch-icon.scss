@@ -1,0 +1,42 @@
+@import "../settings";
+
+.scorch {
+
+    // anti-alias fix
+    transform: translate3d(0, 0, 0);
+
+    &.xs {
+        width: 12px;
+        height: 12px;
+
+        font-size: $fontSize / 4;
+    }
+
+    &.sm {
+        width: 24px;
+        height: 24px;
+
+        font-size: $fontSize / 2;
+    }
+
+    &.md {
+        width: 36px;
+        height: 36px;
+
+        font-size: $fontSize;
+    }
+
+    &.lg {
+        width: 48px;
+        height: 48px;
+
+        font-size: $fontSize * 2;
+    }
+
+    &.xl {
+        width: 60px;
+        height: 60px;
+
+        font-size: $fontSize * 4;
+    }
+}

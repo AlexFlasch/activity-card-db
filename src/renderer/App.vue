@@ -1,6 +1,11 @@
 <style lang="scss">
+    @import "components/scorch/scss/settings";
+    @import "components/scorch/feather-icons/feather-icons.scss";
+
     body {
-        background-color: #DADFE1;
+        background-color: $bodyBg;
+
+        font-size: $fontSize;
     }
 </style>
 

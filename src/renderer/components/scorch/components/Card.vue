@@ -4,7 +4,10 @@
 
 <template>
     <div class="scorch card-container" :class="classes">
-        <slot></slot>
+        <slot name="icon"></slot>
+        <div class="card-content">
+            <slot></slot>
+        </div>
     </div>
 </template>
 

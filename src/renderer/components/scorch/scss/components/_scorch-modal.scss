@@ -1,7 +1,7 @@
 @import "../settings";
 
 .scorch {
-    &.modal-backdrop {
+    .modal-backdrop {
         position: fixed;
 
         display: none;
@@ -14,11 +14,13 @@
         width: 100vw;
         height: 100vh;
 
-        background-color: $elementShadowColor;
+        background-color: opacify($elementShadowColor, 0.2);
 
         opacity: 0;
 
         transition: $defaultTransitionProps;
+        transition-property: opacity;
+        transition-duration: 1s;
 
         &.shown {
             display: block;
@@ -28,6 +30,8 @@
             opacity: 1;
 
             transition: $defaultTransitionProps;
+            transition-property: opacity;
+            transition-duration: 1s;
         }
     }
 
@@ -43,10 +47,10 @@
 
         z-index: 998;
 
-        padding-left: 2.5vw;
-        padding-right: 2.5vw;
-        padding-top: 2.5vh;
-        padding-bottom: 2.5vh;
+        padding-left: 0.75vw;
+        padding-right: 0.75vw;
+        padding-top: 0.75vh;
+        padding-bottom: 0.75vh;
 
         background-color: $elementBg;
 
@@ -57,15 +61,67 @@
         opacity: 0;
         filter: blur(15px);
 
+        transition: $defaultTransitionProps;
+
         &.shown {
             visibility: visible;
 
             z-index: 3;
 
             opacity: 1;
-            filter: blur(0);
+            filter: blur(0px);
 
             transition: $defaultTransitionProps;
         }
+    }
+
+    .titlebar {
+        display: flex;
+
+        width: 100%;
+
+        margin-bottom: 1.5vh;
+
+        flex-direction: row;
+        justify-content: flex-start;
+
+        .title {
+            flex-grow: 9;
+
+            font-weight: 500;
+
+            .close-icon {
+                width: auto;
+                height: 100%;
+
+                display: flex;
+
+                justify-content: center;
+                align-self: center;
+
+                opacity: 0.4;
+
+                transition: $defaultTransitionProps;
+                transition-property: opacity;
+
+                &:hover {
+                    opacity: 1;
+
+                    transition: $defaultTransitionProps;
+                    transition-property: opacity;
+                }
+            }
+        }
+    }
+
+    .content {
+        // tell the renderer to always antialias the font
+        -webkit-font-smoothing: antialiased;
+        transform: translate3d(0, 0, 0);
+
+        padding-left: 1.5vw;
+        padding-right: 1.5vw;
+        padding-top: 1.5vh;
+        padding-bottom: 1.5vh;
     }
 }

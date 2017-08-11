@@ -1,7 +1,15 @@
 @import '../settings';
 
 .scorch {
+
     &.card-container {
+        display: flex;
+
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: nowrap;
+
         background-color: $elementBg;
 
         border-width: 1px;
@@ -41,6 +49,26 @@
 
                 transition: $defaultTransitionProps;
             }
+        }
+
+        &.centered > .card-content {
+            flex-grow: unset;
+            width: auto;
+        }
+
+        .card-content {
+            display: flex;
+
+            flex-grow: 9;
+
+            align-self: center;
+
+            width: 100%;
+            height: 100%;
+        }
+
+        .icon ~ .card-content {
+            margin-left: 1.5vw;
         }
     }
 }

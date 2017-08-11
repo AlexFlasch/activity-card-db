@@ -3,16 +3,19 @@
 </style>
 
 <template>
-    <div class="scorch modal-backdrop" :class="classes" @click="backdropClick()">
-        <div class="modal-container" :class="classes">
+    <div class="scorch">
+        <div class="modal-container" :class="classes" @click.stop>
             <div class="titlebar">
-                <p>{{ titlebar }}</p>
-                <div class="close-icon">
-                    <icon name="lnr-cross"></icon>
+                <p class="title">{{ title }}</p>
+                <div class="close-icon" @click="closeModal()">
+                    <icon :name="closeIcon"></icon>
                 </div>
+            </div>
+            <div class="content">
                 <slot></slot>
             </div>
         </div>
+        <div class="modal-backdrop" :class="classes" @click="backdropClick()"></div>
     </div>
 </template>
 
@@ -27,8 +30,9 @@
             closeIcon: {
                 type: String,
                 required: false,
+                default: 'fe-x',
             },
-            titlebar: {
+            title: {
                 type: String,
                 required: false,
                 default: '',
@@ -45,6 +49,9 @@
                     // update prop
                     this.$emit('update:open', false);
                 }
+            },
+            closeModal() {
+                this.$emit('update:open', false);
             },
         },
         computed: {
