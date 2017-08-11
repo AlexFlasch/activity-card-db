@@ -50,11 +50,11 @@ app.on('activate', () => {
 
 function getCSVFiles() {
     const files = fs.readdir('./../../static/csv/', (err, files) => {
-        debugger;
+        // debugger;
         return files;
     });
 
-    debugger;
+    // debugger;
     return files;
 }
 
@@ -70,7 +70,7 @@ async function getCSVFile(fileName) {
     parser.on('readable', () => {
         const record = parser.read();
 
-        debugger;
+        // debugger;
 
         // record will be null if it has reached the
         // end of the readable stream
@@ -92,7 +92,7 @@ function generateCSVFile(fileName) {
 
     return fs.writeFile(`./../../static/csv/${fileName}`, csvHeader, (err) => {
         if(err) {
-            console.err(err);
+            // console.err(err);
 
             // log error and let renderer know that something bad happened
             return false;
