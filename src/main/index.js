@@ -49,10 +49,7 @@ app.on('activate', () => {
 });
 
 function getCSVFiles() {
-    const files = fs.readdir('./../../static/csv/', (err, files) => {
-        // debugger;
-        return files;
-    });
+    const files = fs.readdir('./../../static/csv/', (err, files) => files);
 
     // debugger;
     return files;
