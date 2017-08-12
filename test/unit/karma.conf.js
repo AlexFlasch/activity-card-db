@@ -51,7 +51,7 @@ module.exports = (config) => {
             }
         },
         frameworks: [
-            'mocha', 'sinon-chai'
+            'mocha', 'chai', 'chai-dom', 'sinon-chai',
         ],
         files: ['./index.js'],
         preprocessors: {

@@ -15,8 +15,13 @@
 <script>
     import settings from './../settings';
 
-    const iconType = settings.iconType;
+    const iconFamilyType = settings.iconType;
     const iconPrefix = settings.iconPrefix;
+
+    const validIconTypes = [
+        'icon-font',
+        'svg',
+    ];
 
     const iconSizes = [
         'xs',
@@ -49,10 +54,17 @@
                     return iconSizes.includes(val);
                 },
             },
+            iconType: {
+                type: String,
+                required: false,
+                default: iconFamilyType,
+                validator(val) {
+                    return validIconTypes.includes(val);
+                },
+            },
         },
         data() {
             return {
-                iconType,
                 iconPrefix,
             };
         },

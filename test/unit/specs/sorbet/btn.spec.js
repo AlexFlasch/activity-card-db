@@ -1,33 +1,21 @@
-import Vue from 'vue';
+import { beforeEachHooks, afterEachHooks, mount } from 'vue-unit';
 
-import Sorbet from '@/components/sorbet';
-
-import { watchConsoleErr } from '../../../test-util';
-
-Vue.use(Sorbet);
+import Btn from '@/components/sorbet/components/Btn.vue';
 
 describe('Btn.vue', () => {
+    beforeEach(beforeEachHooks);
+
     it('should render properly', () => {
-        new Vue({
-            el: document.createElement('div'),
-            render: h => h('btn', 'Test'),
-        });
+        const vm = mount(Btn, {}, {}, '<span>Test</span>');
 
-        console.log(chalk.blue(document.querySelector('.sorbet.btn'))); // eslint-disable-line
-
-        expect(document.querySelector('.sorbet.btn').textContent).to.contain('Test');
+        expect(vm.$el).to.have.text('Test');
     });
 
-    it('should validate invalid contexts', () => {
-        const errors = [];
+    it('should render different contexts', () => {
+        const vm = mount(Btn, { context: 'warning' });
 
-        watchConsoleErr(errors);
-
-        new Vue({
-            el: document.createElement('div'),
-            render: h => h('btn', { context: 'foo' }, 'Test'),
-        });
-
-        expect(errors).to.have.lengthOf.at.least(1);
+        expect(vm.$el).to.have.class('warning');
     });
+
+    afterEach(afterEachHooks);
 });
