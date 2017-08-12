@@ -1,15 +1,15 @@
 <style scoped lang="scss">
-    @import "../scss/components/scorch-icon";
+    @import "../scss/components/sorbet-icon";
 </style>
 
 <template>
-    <svg class="scorch icon" :class="classes" v-if="iconType === 'svg'">
+    <svg class="sorbet icon" :class="classes" v-if="iconType === 'svg'">
         <use :xlink:href="hrefName"></use>
     </svg>
 
-    <i class="scorch icon" :class="classes" v-else-if="iconType === 'icon-font'"></i>
+    <i class="sorbet icon" :class="classes" v-else-if="iconType === 'icon-font'"></i>
 
-    <p class="scorch" v-else>{{ iconType }} is not a valid option for iconType in Scorch settings.</p>
+    <p class="sorbet" v-else>{{ iconType }} is not a valid option for iconType in Sorbet settings.</p>
 </template>
 
 <script>

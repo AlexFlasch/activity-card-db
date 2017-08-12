@@ -24,7 +24,7 @@ export default {
         hrefAttr.value = modifiedSettings.fontSrc;
         relAttr.value = 'stylesheet';
 
-        // installs Scorch into the Vue vm.
+        // installs Sorbet into the Vue vm.
         Vue.mixin({
             mounted() {
                 this.$root.$el.appendChild(fontLink);
@@ -32,9 +32,9 @@ export default {
             },
         });
 
-        // register all Scorch components
+        // register all Sorbet components
         Object.keys(components).forEach((el) => {
-            // console.log(`registering Scorch component ${components[el].name}`);
+            // console.log(`registering Sorbet component ${components[el].name}`);
             Vue.component(components[el].name, components[el]);
         });
     },

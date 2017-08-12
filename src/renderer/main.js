@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
-import Scorch from '@/components/scorch';
+import Sorbet from '@/components/sorbet';
 
 import App from './App';
 import router from './router';
@@ -13,7 +13,7 @@ if(!process.env.IS_WEB) {
 Vue.http = Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
-Vue.use(Scorch);
+Vue.use(Sorbet);
 
 /* eslint-disable no-new */
 new Vue({

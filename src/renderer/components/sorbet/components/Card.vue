@@ -1,9 +1,9 @@
 <style scoped lang="scss">
-    @import '../scss/components/scorch-card';
+    @import '../scss/components/sorbet-card';
 </style>
 
 <template>
-    <div class="scorch card-container" :class="classes">
+    <div class="sorbet card-container" :class="classes">
         <slot name="icon"></slot>
         <div class="card-content">
             <slot></slot>

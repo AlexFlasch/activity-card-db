@@ -1,9 +1,9 @@
 <style scoped lang="scss" >
-    @import "../scss/components/scorch-modal";
+    @import "../scss/components/sorbet-modal";
 </style>
 
 <template>
-    <div class="scorch">
+    <div class="sorbet">
         <div class="modal-container" :class="classes" @click.stop>
             <div class="titlebar">
                 <p class="title">{{ title }}</p>

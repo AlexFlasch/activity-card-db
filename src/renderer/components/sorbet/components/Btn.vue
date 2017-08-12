@@ -1,9 +1,9 @@
 <style scoped lang="scss">
-    @import '../scss/components/scorch-btn';
+    @import '../scss/components/sorbet-btn';
 </style>
 
 <template>
-    <div class="scorch button"
+    <div class="sorbet btn"
         :class="classes">
             <slot></slot>
     </div>
@@ -26,7 +26,7 @@
     ];
 
     export default {
-        name: 'scorch-btn',
+        name: 'btn',
         props: {
             context: {
                 type: String,

@@ -1,6 +1,6 @@
 <style lang="scss">
-    @import "components/scorch/scss/settings";
-    @import "components/scorch/feather-icons/feather-icons.scss";
+    @import "components/sorbet/scss/settings";
+    @import "components/sorbet/feather-icons/feather-icons.scss";
 
     body {
         background-color: $bodyBg;

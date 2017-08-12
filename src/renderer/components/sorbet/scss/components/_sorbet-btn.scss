@@ -1,4 +1,4 @@
-@import '../scss/settings';
+@import '../settings';
 @import '../animations/hover';
 @import '../animations/active';
 @import '../util/functions';
@@ -14,8 +14,8 @@
     );
 }
 
-.scorch {
-    &.button {
+.sorbet {
+    &.btn {
         position: relative;
         display: inline-block;
 

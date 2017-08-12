@@ -1,5 +1,5 @@
 <style scoped lang="scss">
-    @import "../scss/components/scorch-input";
+    @import "../scss/components/sorbet-input";
 </style>
 
 <template>
@@ -18,7 +18,7 @@
     ];
 
     export default {
-        name: 'scorch-input',
+        name: 'sorbet-input',
         props: {
             type: {
                 type: String,
