@@ -1,0 +1,18 @@
+@import "settings";
+@import "util/functions";
+
+@each $context, $color in $contexts {
+    span.#{$context},
+    div.#{$context},
+    p.#{$context} {
+        background-color: lighten($color, 0.9);
+        color: $color;
+
+        padding-left: 1.25vw;
+        padding-right: 1.25vw;
+        padding-top: 1.25vh;
+        padding-bottom: 1.25vh;
+
+        border-radius: 10px;
+    }
+}

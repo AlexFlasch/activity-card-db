@@ -6,7 +6,7 @@
     <div class="sorbet">
         <div class="modal-container" :class="classes" @click.stop>
             <div class="titlebar">
-                <p class="title">{{ title }}</p>
+                <slot name="header"></slot>
                 <div class="close-icon" @click="closeModal()">
                     <icon :name="closeIcon"></icon>
                 </div>
@@ -14,14 +14,22 @@
             <div class="content">
                 <slot></slot>
             </div>
+            <div class="footer">
+                <slot name="footer"></slot>
+            </div>
         </div>
         <div class="modal-backdrop" :class="classes" @click="backdropClick()"></div>
     </div>
 </template>
 
 <script>
+    import * as Icon from './Icon';
+
     export default {
         name: 'modal',
+        components: {
+            Icon,
+        },
         props: {
             open: {
                 type: Boolean,
@@ -31,11 +39,6 @@
                 type: String,
                 required: false,
                 default: 'fe-x',
-            },
-            title: {
-                type: String,
-                required: false,
-                default: '',
             },
             clickAway: {
                 type: Boolean,

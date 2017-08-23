@@ -1,21 +1,31 @@
-import { beforeEachHooks, afterEachHooks, mount } from 'vue-unit';
-
 import Btn from '@/components/sorbet/components/Btn.vue';
 
+import { mount } from './../../util';
+
 describe('Btn.vue', () => {
-    beforeEach(beforeEachHooks);
-
     it('should render properly', () => {
-        const vm = mount(Btn, {}, {}, '<span>Test</span>');
+        const vm = mount(null, {
+            render() {
+                return (
+                    <div>
+                        <Btn>Test</Btn>
+                    </div>
+                );
+            },
+        });
 
-        expect(vm.$el).to.have.text('Test');
+        const btnEl = vm.$el.querySelector('.btn');
+
+        expect(btnEl).to.have.text('Test');
     });
 
     it('should render different contexts', () => {
-        const vm = mount(Btn, { context: 'warning' });
+        const vm = mount(Btn, {
+            propsData: {
+                context: 'warning',
+            },
+        });
 
         expect(vm.$el).to.have.class('warning');
     });
-
-    afterEach(afterEachHooks);
 });

@@ -1,5 +1,6 @@
 <style lang="scss">
     @import "components/sorbet/scss/settings";
+    @import "components/sorbet/scss/contexts";
     @import "components/sorbet/feather-icons/feather-icons.scss";
 
     body {

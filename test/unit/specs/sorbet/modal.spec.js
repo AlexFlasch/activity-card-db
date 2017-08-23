@@ -1,19 +1,71 @@
-import { beforeEachHooks, afterEachHooks, mount } from 'vue-unit';
-
+// import { inspect } from 'util';
 import Modal from '@/components/sorbet/components/Modal';
+import { mount } from './../../util';
 
 describe('Modal.vue', () => {
-    beforeEach(beforeEachHooks);
-
     it('should render properly', () => {
-        const vm = mount(Modal, {}, {}, '<span>Testing modal</span>');
+        const vm = mount(null, {
+            render() {
+                return (
+                    <div>
+                        <Modal open={false}>Testing modal</Modal>
+                    </div>
+                );
+            },
+        });
 
-        expect([...vm.$el.classList]).to.not.contain('shown');
+        const modalEl = vm.$el.querySelector('.modal-container');
+
+        expect([...modalEl.classList]).to.not.contain('shown');
+        expect(modalEl.querySelector('.content')).to.have.text('Testing modal');
     });
 
     it('should properly show and hide', () => {
-        const vm = mount(Modal, { shown: false });
-    })
+        const getVm = open =>
+            mount(Modal, {
+                propsData: {
+                    open,
+                },
+            });
 
-    afterEach(afterEachHooks);
+        const closedVm = getVm(false);
+
+        let modalEl = closedVm.$el.querySelector('.modal-container');
+
+        expect([...modalEl.classList]).to.not.contain('shown');
+
+        const openVm = getVm(true);
+        modalEl = openVm.$el.querySelector('.modal-container');
+
+        expect([...modalEl.classList]).to.contain('shown');
+    });
+
+    it('should respect clickAway setting', async function() {
+        const getVm = (open, clickAway) =>
+            mount(Modal, {
+                propsData: {
+                    open,
+                    clickAway,
+                },
+            });
+
+        const clickAwayVm = getVm(true, true);
+
+        sinon.spy(clickAwayVm, '$emit');
+
+        clickAwayVm.backdropClick();
+
+        await clickAwayVm.$nextTick(() => { });
+
+        expect(clickAwayVm.$emit).to.have.been.calledWith('update:open', false);
+
+        const nonClickAwayVm = getVm(true, false);
+        sinon.spy(nonClickAwayVm, '$emit');
+
+        nonClickAwayVm.backdropClick();
+
+        await nonClickAwayVm.$nextTick(() => { });
+
+        expect(nonClickAwayVm.$emit).to.not.have.been.calledWith('update:open', false);
+    });
 });
