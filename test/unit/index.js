@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { inspect } from 'util';
 Vue.config.devtools = false;
 Vue.config.productionTip = false;
 
@@ -10,4 +11,5 @@ testsContext.keys().forEach(testsContext);
 // you can also change this to match only the subset of files that
 // you want coverage for.
 const srcContext = require.context('../../src/renderer', true, /^\.\/(?!main(\.js)?$)/);
-srcContext.keys().forEach(srcContext);
+// filter removes unwanted directories/files from getting coverage
+srcContext.keys().filter((ctx) => ctx.indexOf('store') === -1).forEach(srcContext);

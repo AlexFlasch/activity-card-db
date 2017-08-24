@@ -81,6 +81,7 @@
 
                 let iconSize = '';
 
+                /* istanbul ignore else */
                 if(xsAliases.includes(this.size)) {
                     iconSize = 'xs';
                 } else if(smAliases.includes(this.size)) {

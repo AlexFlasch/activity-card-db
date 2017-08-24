@@ -18,6 +18,7 @@
             depth: {
                 required: false,
                 default: 1,
+                type: [Number, String],
                 validator(val) {
                     if(typeof val === 'string') {
                         val = parseInt(val, 10);

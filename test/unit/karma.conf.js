@@ -57,9 +57,6 @@ module.exports = (config) => {
         preprocessors: {
             './index.js': ['webpack', 'sourcemap'],
         },
-        exclude: [
-            '**/!(store)/**',
-        ],
         reporters: [
             'spec', 'coverage'
         ],

@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import Vuex from 'vuex';
 
 // import { inspect } from 'util';
@@ -13,6 +14,8 @@ describe('Home.vue', () => {
     let state;
 
     beforeEach(() => {
+        Vue.use(Vuex);
+
         mutations = {
             addCsvFile(state, newFile) {
                 state.csvFiles.push(newFile);

@@ -28,4 +28,21 @@ describe('Btn.vue', () => {
 
         expect(vm.$el).to.have.class('warning');
     });
+
+    it('should properly disable', async function() {
+        const getVm = disabled =>
+            mount(Btn, {
+                propsData: {
+                    disabled,
+                },
+            });
+
+        const disabledVm = getVm(true);
+
+        expect(disabledVm.$el).to.have.class('disabled');
+
+        const enabledVm = getVm(false);
+
+        expect(enabledVm.$el).to.not.have.class('disabled');
+    });
 });
