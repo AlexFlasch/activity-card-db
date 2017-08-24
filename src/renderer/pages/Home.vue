@@ -17,7 +17,7 @@
             <h2 slot="header">New year details:</h2>
             <span v-if="addFileErr" class="error">There was a problem adding the new year. Please try again.</span>
             <text-input label="Year" type="text" v-model="filename" :placeholder="yearPlaceholder"></text-input>
-            <btn click>Add year</btn>
+            <btn context="primary" @click="addYear()">Add year</btn>
         </modal>
     </div>
 </template>
@@ -40,14 +40,9 @@
                 this.modalOpen = true;
             },
             async addYear() {
-                const success = await this.$store.dispatch('addCsvFile', this.fileOptions);
+                await this.$store.dispatch('addCsvFile', this.fileOptions);
 
-                if(success) {
-                    this.addFileErr = false;
-                    this.modalOpen = false;
-                } else {
-                    this.addFileErr = true;
-                }
+                this.modalOpen = false;
             },
             ...mapActions([
                 'getCsvFiles',

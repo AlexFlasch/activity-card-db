@@ -21,23 +21,21 @@ describe('Modal.vue', () => {
     });
 
     it('should properly show and hide', () => {
-        const getVm = open =>
-            mount(Modal, {
-                propsData: {
-                    open,
-                },
-            });
+        const vm = mount(Modal, {
+            propsData: {
+                open: true,
+            },
+        });
 
-        const closedVm = getVm(false);
+        sinon.spy(vm, '$emit');
 
-        let modalEl = closedVm.$el.querySelector('.modal-container');
+        vm.closeModal();
 
-        expect([...modalEl.classList]).to.not.contain('shown');
+        expect(vm.$emit).to.have.been.calledWith('update:open', false);
 
-        const openVm = getVm(true);
-        modalEl = openVm.$el.querySelector('.modal-container');
+        vm.$emit('update:open', true);
 
-        expect([...modalEl.classList]).to.contain('shown');
+        expect(vm.$el.querySelector('.modal-container')).to.have.class('shown');
     });
 
     it('should respect clickAway setting', async function() {

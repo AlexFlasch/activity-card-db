@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
 import Sorbet from '@/components/sorbet';
+import SorbetComps from '@/components/sorbet/components';
 
 export const simulate = function simulate(el, etype) {
     const evObj = document.createEvent('Events');
@@ -8,7 +9,7 @@ export const simulate = function simulate(el, etype) {
     el.dispatchEvent(evObj);
 };
 
-export const mount = function mount(component, options) {
+export const mount = function mount(component, options = {}) {
     let Ctr;
 
     // allow mounting a full Vue instance
@@ -18,6 +19,16 @@ export const mount = function mount(component, options) {
         Ctr = Vue.extend(component);
     }
 
+    options = {
+        components: {
+            ...SorbetComps,
+            ...options.components,
+        },
+        ...options,
+    };
+
+    // doing this doesn't actually register components for the
+    // unit tests, but it does provide coverage for the installation
     Ctr.use(Sorbet);
 
     return new Ctr(options).$mount();

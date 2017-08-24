@@ -50,7 +50,7 @@ let rendererConfig = {
       },
       {
         test: /\.scss$/,
-        use: 'style-loader!css-loader!sass-loader'
+        use: '!sass-loader'
       },
       {
         test: /\.html$/,

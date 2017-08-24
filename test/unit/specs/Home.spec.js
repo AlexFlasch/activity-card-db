@@ -80,7 +80,7 @@ describe('Home.vue', () => {
 
         expect(cards.length).to.equal(3);
 
-        vm.$store.dispatch('addCsvFile', { filename: 'Test 3' });
+        vm.addYear({ filename: 'Test 3' });
 
         vm.$nextTick(() => {
             cards = vm.$el.querySelectorAll('.card-container');

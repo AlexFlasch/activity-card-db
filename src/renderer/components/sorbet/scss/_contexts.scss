@@ -1,5 +1,4 @@
 @import "settings";
-@import "util/functions";
 
 @each $context, $color in $contexts {
     span.#{$context},

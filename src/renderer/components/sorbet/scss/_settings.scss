@@ -9,9 +9,7 @@ $successColor: #26A65B;
 $infoColor: #59ABE3;
 $warningColor: #F27935;
 $errorColor: #F64747;
-$defaultColor: #E4F1FE;
-
-$fontSize: 1.1rem;
+$defaultColor: #6C7A89;
 
 // --- Contexts ---
 $contexts: (
@@ -25,7 +23,9 @@ $contexts: (
 );
 
 // --- Fonts ---
-$fontFamily: '"Dosis", sans-serif';
+$fontFamily: 'Raleway';
+$fontSize: 1.1rem;
+$defaultFontWeight: 300;
 
 // --- Animations & Transitions ---
 $transitionProperty: all;
