@@ -3,14 +3,12 @@
 </style>
 
 <template>
-    <div class="input-container">
-        <label>
-            <span class="sorbet-label">
-                {{ label }}
-            </span>
-            <input class="sorbet-input" :type="type" :value="val">
-        </label>
-    </div>
+    <label class="sorbet input-container">
+        <span class="sorbet-label">
+            {{ label }}
+        </span>
+        <input class="sorbet-input" :type="type" :value="val">
+    </label>
 </template>
 
 <script>

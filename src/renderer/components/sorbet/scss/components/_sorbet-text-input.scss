@@ -1,0 +1,31 @@
+@import "../util/functions";
+@import "../settings";
+
+$containerShadow: create-shadow-map(0px, 3px, 15px, 0px, transparentize($elementShadowColor, 0.4), inset);
+
+.sorbet.input-container {
+    display: block;
+
+    height: 2.5vh;
+
+    border-radius: 3px;
+
+    box-shadow: shadow-map-to-props($containerShadow);
+}
+
+.sorbet-label {
+
+}
+
+.sorbet-input {
+    width: 10vw;
+    height: 2.5vh;
+
+    font-size: 1.5vh;
+
+    @each $name, $color in $contexts {
+        &.#{$name} {
+            border-color: $color;
+        }
+    }
+}

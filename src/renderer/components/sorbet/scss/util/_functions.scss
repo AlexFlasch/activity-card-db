@@ -77,7 +77,7 @@
         $shadow-props: append($shadow-props, shadow-map-to-props($map));
     }
 
-    @warn '$shadow-props: #{$shadow-props}';
+    // @debug '$shadow-props: #{$shadow-props}';
 
     @return $shadow-props;
 }

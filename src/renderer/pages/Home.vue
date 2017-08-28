@@ -14,7 +14,7 @@
             Add a new year
         </card>
         <modal :open.sync="modalOpen">
-            <h2 slot="header">New year details:</h2>
+            <p slot="header">New year details</p>
             <span v-if="addFileErr" class="error">There was a problem adding the new year. Please try again.</span>
             <text-input label="Year" type="text" v-model="filename" :placeholder="yearPlaceholder"></text-input>
             <btn context="primary" @click="addYear()">Add year</btn>

@@ -18,9 +18,7 @@
 
         opacity: 0;
 
-        transition: $defaultTransitionProps;
-        transition-property: opacity;
-        transition-duration: 1s;
+        transition-duration: 0s;
 
         &.shown {
             display: block;
@@ -29,9 +27,7 @@
 
             opacity: 1;
 
-            transition: $defaultTransitionProps;
-            transition-property: opacity;
-            transition-duration: 1s;
+            transition-duration: 0s;
         }
     }
 
@@ -62,6 +58,8 @@
         filter: blur(15px);
 
         transition: $defaultTransitionProps;
+        transition-duration: 0s;
+        transition-delay: 0s;
 
         &.shown {
             visibility: visible;
@@ -72,6 +70,8 @@
             filter: blur(0px);
 
             transition: $defaultTransitionProps;
+            transition-duration: 0s;
+            transition-delay: 0s;
         }
     }
 
@@ -89,27 +89,27 @@
             flex-grow: 9;
 
             font-weight: 500;
+        }
 
-            .close-icon {
-                width: auto;
-                height: 100%;
+        .close-icon {
+            width: auto;
+            height: 100%;
 
-                display: flex;
+            display: flex;
 
-                justify-content: center;
-                align-self: center;
+            justify-content: center;
+            align-self: center;
 
-                opacity: 0.4;
+            opacity: 0.4;
+
+            transition: $defaultTransitionProps;
+            transition-property: opacity;
+
+            &:hover {
+                opacity: 1;
 
                 transition: $defaultTransitionProps;
                 transition-property: opacity;
-
-                &:hover {
-                    opacity: 1;
-
-                    transition: $defaultTransitionProps;
-                    transition-property: opacity;
-                }
             }
         }
     }

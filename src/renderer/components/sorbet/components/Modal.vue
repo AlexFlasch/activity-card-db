@@ -3,10 +3,12 @@
 </style>
 
 <template>
-    <div class="sorbet">
+    <div class="sorbet" v-show="open" data-html2canvas-ignore="true">
         <div class="modal-container" :class="classes" @click.stop>
             <div class="titlebar">
-                <slot name="header"></slot>
+                <div class="title">
+                    <slot name="header"></slot>
+                </div>
                 <div class="close-icon" @click="closeModal()">
                     <icon :name="closeIcon"></icon>
                 </div>
@@ -18,7 +20,7 @@
                 <slot name="footer"></slot>
             </div>
         </div>
-        <div class="modal-backdrop" :class="classes" @click="backdropClick()"></div>
+        <div class="modal-backdrop" :class="classes" @click="backdropClick()" v-frost></div>
     </div>
 </template>
 
