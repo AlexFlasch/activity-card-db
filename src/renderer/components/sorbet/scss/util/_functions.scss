@@ -59,6 +59,15 @@
     );
 }
 
+@function create-transition-map($property, $duration, $timing-function, $delay: 0s) {
+    @return (
+        property: $property,
+        duration: $duration,
+        timing-function: $timing-function,
+        delay: $delay
+    );
+}
+
 @function shadow-map-to-props($shadow) {
     $inset: get-val($shadow, 'i');
     $hOffset: get-val($shadow, 'h');
@@ -68,6 +77,15 @@
     $color: get-val($shadow, 'c');
 
     @return #{$inset} #{$hOffset} #{$vOffset} #{$blur} #{$spread} #{$color};
+}
+
+@function transition-map-to-props($transition) {
+    $property: get-val($transition, 'property');
+    $duration: get-val($transition, 'duration');
+    $timing-function: get-val($transition, 'timing-function');
+    $delay: get-val($transition, 'delay');
+
+    @return #{$property} #{$duration} #{$timing-function} #{$delay};
 }
 
 @function shadow-maps-to-props($shadows...) {
@@ -80,4 +98,16 @@
     // @debug '$shadow-props: #{$shadow-props}';
 
     @return $shadow-props;
+}
+
+// $color: the color of the background the text will be displayed on
+// $lightColor: the color the function returns if the bg is too dark
+// $darkColor: the color the function returns if the bg is too light
+@function get-text-color($color, $lightColor, $darkColor) {
+    @if(lightness($color) > 50) {
+        @return $darkColor;
+    }
+    @else {
+        @return $lightColor;
+    }
 }

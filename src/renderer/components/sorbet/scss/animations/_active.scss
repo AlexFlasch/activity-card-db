@@ -2,13 +2,15 @@
 @import '../util/mixins';
 @import '../settings';
 
+////// btn animations //////
+
 // transform element to scale larger and move up
 // to give the illusion of it rising.
 // scale and translate are both larger than hover-rise
-@mixin active-rise() {
+@mixin active-lower() {
 
     &:active {
-        transform: translateY(-2px) scale(1.02);
+        transform: translateY(2px) scale(1.02);
 
         transition: $defaultTransitionProps;
     }
@@ -17,20 +19,22 @@
 // $shadows is a list of maps of shadow props
 //
 //
-@mixin active-shadow-rise($shadows) {
+@mixin active-shadow-lower($shadows) {
 
     $dropShadow: nth($shadows, 1);
     $glowShadow: nth($shadows, 2);
 
     &:active {
-        $vOffset: get-val($dropShadow, 'v') + 2px;
-        $spread: get-val($dropShadow, 's') + 2px;
+        $vOffset: get-val($dropShadow, 'v') - 2px;
+        $spread: get-val($dropShadow, 's') - 2px;
 
         $dropShadow: set-val($dropShadow, 'v', $vOffset);
         $dropShadow: set-val($dropShadow, 's', $spread);
 
-        @include multi-box-shadow(shadow-map-to-props($dropShadow),
-            shadow-map-to-props($glowShadow));
+        @include multi-box-shadow(
+            shadow-map-to-props($dropShadow),
+            shadow-map-to-props($glowShadow)
+        );
 
         transition: $defaultTransitionProps;
     }
@@ -47,10 +51,34 @@
     $glowShadow: nth($shadows, 2);
 
     &:active {
-        // lighten background-color
-        // .lighten(0.15).saturate(0.25)
         background-color: lighten(saturate($color, 25%), 15%);
 
         transition: $defaultTransitionProps;
     }
+}
+
+////// text-input animations //////
+
+@mixin active-placeholder-shift($label-selector) {
+
+    & ~ #{$label-selector} {
+        transition: $defaultTransitionProps;
+    }
+
+    &.active ~ #{$label-selector},
+    &:focus ~ #{$label-selector}{
+        top: -1.5vh;
+        left: 0;
+
+        font-size: 1rem;
+        font-weight: 700;
+
+        transition: $defaultTransitionProps;
+    }
+}
+
+////// reveal animations //////
+
+@mixin active-reveal-anim() {
+
 }

@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import Sorbet from '@/components/sorbet';
 import SorbetComps from '@/components/sorbet/components';
+import SorbetDir from '@/components/sorbet/directives';
 
 export const simulate = function simulate(el, etype) {
     const evObj = document.createEvent('Events');
@@ -23,6 +24,10 @@ export const mount = function mount(component, options = {}) {
         components: {
             ...SorbetComps,
             ...options.components,
+        },
+        directives: {
+            ...SorbetDir,
+            ...options.directives,
         },
         ...options,
     };

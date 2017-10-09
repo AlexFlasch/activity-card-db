@@ -39,6 +39,11 @@
         'extra large',
     ];
 
+    const fontColors = [
+        'light',
+        'dark',
+    ];
+
     export default {
         name: 'icon',
         props: {
@@ -60,6 +65,26 @@
                 default: iconFamilyType,
                 validator(val) {
                     return validIconTypes.includes(val);
+                },
+            },
+            color: {
+                type: String,
+                required: false,
+                validator(val) {
+                    const validPredefinedColor = fontColors.includes(val);
+                    const validHexColor = /(^#[0-9A-F]{8}$)|(^#[0-9A-F]{4})|(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(val);
+                    const validRgbColor = /(^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\))/.test(val);
+                    const validRgbaColor = /(^rgba\((\d{1,3}), (\d{1,3}), (\d{1,3}), (\d{1,3})\))/.test(val);
+                    const validHslColor = /(^hsl\((\d{1,3}), (\d{1,3}%), (\d{1,3}%)\))/.test(val);
+                    const validHslaColor = /(^hsla\((\d{1,3}), (\d{1,3}%), (\d{1,3}%), ((\d{1}\.\d{1,3})|(\d{1}))\))/.test(val);
+                    // maybe someday detect browser-specified color names?
+
+                    return validPredefinedColor
+                        || validHexColor
+                        || validRgbColor
+                        || validRgbaColor
+                        || validHslColor
+                        || validHslaColor;
                 },
             },
         },
@@ -94,11 +119,42 @@
                     iconSize = 'xl';
                 }
 
+                let iconColor = '';
+
+                if(this.color === 'dark' || this.color === 'light') {
+                    iconColor = this.color;
+                }
+
                 return [
                     iconPrefix,
                     this.name,
                     iconSize,
+                    iconColor,
                 ];
+            },
+            styles() {
+                let iconColor = '';
+
+                if(this.color !== 'dark' || this.color !== 'light') {
+                    iconColor = this.color;
+                }
+
+                const iconFontStyles = {
+                    color: iconColor,
+                };
+
+                const svgFontStyles = {
+                    fill: iconColor,
+                };
+
+                switch(this.iconType) {
+                    case 'icon-font':
+                        return iconFontStyles;
+                    case 'svg':
+                        return svgFontStyles;
+                    default:
+                        return iconFontStyles;
+                }
             },
         },
     };

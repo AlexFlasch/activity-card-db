@@ -1,0 +1,120 @@
+@import "../settings";
+@import "../util/functions";
+
+$revealTransition: $transitionMap;
+$revealTransition: set-val($revealTransition, 'duration', 0.666s);
+$revealTransitionProps: transition-map-to-props($revealTransition);
+
+@debug '$revealTransitionProps: #{$revealTransitionProps}';
+
+.reveal-container {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 1.5vmin;
+
+    background-color: opacify($elementShadowColor, 1);
+
+    box-sizing: border-box;
+
+    transition: $revealTransitionProps;
+
+    cursor: default;
+
+    @each $name, $color in $contexts {
+        &.#{$name} {
+            $backgroundColor: opacify($color, 1);
+            background-color: $backgroundColor;
+
+            transition: $revealTransitionProps;
+
+            .close-reveal {
+                color: get-text-color($backgroundColor, $lightFontColor, $darkFontColor);
+
+                transition: $revealTransitionProps;
+            }
+        }
+    }
+
+    &.centered {
+        display: flex;
+
+        flex-direction: row;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .close-reveal {
+        position: absolute;
+
+        top: 0;
+        right: 0;
+
+        cursor: pointer;
+
+        margin: 0.5vmin;
+
+        color: get-text-color(opacify($elementShadowColor, 1), $lightFontColor, $darkFontColor);
+
+        transition: $revealTransitionProps;
+    }
+}
+
+@mixin open-position() {
+    &.open {
+        top: 0;
+        left: 0;
+
+        opacity: 1;
+
+        transition: $revealTransitionProps;
+    }
+}
+
+.top-anim {
+    top: -100%;
+    left: 0;
+
+    transition: $revealTransitionProps;
+
+    @include open-position();
+}
+
+.left-anim {
+    top: 0;
+    left: -100%;
+
+    transition: $revealTransitionProps;
+
+    @include open-position();
+}
+
+.right-anim {
+    top: 0;
+    left: 100%;
+
+    transition: $revealTransitionProps;
+
+    @include open-position();
+}
+
+.bottom-anim {
+    top: 100%;
+    left: 0;
+
+    transition: $revealTransitionProps;
+
+    @include open-position();
+}
+
+.fade-anim {
+    top: 0;
+    left: 0;
+
+    opacity: 0;
+
+    @include open-position();
+}

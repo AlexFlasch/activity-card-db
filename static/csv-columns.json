@@ -1,5 +1,14 @@
-{
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "paid": true
-}
+[
+    {
+        "title": "First Name",
+        "type": ""
+    },
+    {
+        "title": "Last Name",
+        "type": ""
+    },
+    {
+        "title": "Paid",
+        "type": false
+    }
+]

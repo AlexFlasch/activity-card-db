@@ -1,6 +1,6 @@
 // import { inspect } from 'util';
 import Modal from '@/components/sorbet/components/Modal';
-import { mount } from './../../util';
+import { mount } from './../../../util';
 
 describe('Modal.vue', () => {
     it('should render properly', () => {

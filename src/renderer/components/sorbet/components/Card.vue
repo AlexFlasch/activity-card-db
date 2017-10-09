@@ -4,7 +4,8 @@
 
 <template>
     <div class="sorbet card-container" :class="classes">
-        <slot name="icon"></slot>
+        <slot name="primary-icon"></slot>
+        <slot name="secondary-icon"></slot>
         <div class="card-content">
             <slot></slot>
         </div>
@@ -27,13 +28,31 @@
                     return val <= 5 && val >= 0;
                 },
             },
+            hover: {
+                required: false,
+                default: false,
+                type: [Boolean, String],
+                validator(val) {
+                    let valid = true;
+
+                    if(typeof val === 'string') {
+                        valid = (val === 'true' || val === 'false');
+                    }
+
+                    return valid;
+                },
+            },
         },
         computed: {
             classes() {
                 const depthClass = `depth-${this.depth}`;
+                const hoverClass = this.hover || this.hover === 'true'
+                    ? 'hover'
+                    : '';
 
                 return [
                     depthClass,
+                    hoverClass,
                 ];
             },
         },

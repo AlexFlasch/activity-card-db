@@ -1,6 +1,5 @@
 <style lang="scss">
-    @import "components/sorbet/scss/settings";
-    @import "components/sorbet/scss/contexts";
+    @import "components/sorbet/scss/index";
     @import "components/sorbet/feather-icons/feather-icons.scss";
     @import "components/sorbet/raleway/raleway.css";
 
@@ -17,6 +16,11 @@
         font-family: 'Raleway';
         font-weight: $defaultFontWeight;
         font-size: $fontSize;
+
+        & * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
     }
 
     #app {
@@ -26,12 +30,29 @@
 
 <template>
     <div id="app">
-        <router-view></router-view>
+        <transition name="slide" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
 <script>
+    import electron from 'electron';
+    import { mapActions } from 'vuex';
+
+    const currentWindow = electron.remote.getCurrentWindow();
+
     export default {
         name: 'activity-card-tracker',
+        beforeMount() {
+            this.setCsvFiles(currentWindow.csvFiles);
+            this.setCsvColumns(currentWindow.csvColumns);
+        },
+        methods: {
+            ...mapActions([
+                'setCsvFiles',
+                'setCsvColumns',
+            ]),
+        },
     };
 </script>

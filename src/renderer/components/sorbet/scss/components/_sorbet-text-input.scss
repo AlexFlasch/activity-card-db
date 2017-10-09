@@ -1,31 +1,102 @@
 @import "../util/functions";
 @import "../settings";
+@import "../animations/active";
+@import "../animations/hover";
 
-$containerShadow: create-shadow-map(0px, 3px, 15px, 0px, transparentize($elementShadowColor, 0.4), inset);
+$insetShadow: create-shadow-map(0px, 1px, 15px, 0px, $elementShadowColor, inset);
 
 .sorbet.input-container {
-    display: block;
+    position: relative;
+
+    display: inline-block;
 
     height: 2.5vh;
 
-    border-radius: 3px;
+    & .sorbet-input:focus {
+        $shadowColor: get-val($insetShadow, 'c');
+        $shadowColor: darken(saturate($shadowColor, 30%), 10%);
+        $shadowBlur: get-val($insetShadow, 'b') + 5px;
 
-    box-shadow: shadow-map-to-props($containerShadow);
+        $shadow: set-val($insetShadow, 'c', $shadowColor);
+        $shadow: set-val($shadow, 'b', $shadowBlur);
+
+        box-shadow: shadow-map-to-props($shadow);
+
+        transition: $defaultTransitionProps;
+
+        & ~ .sorbet-label {
+            cursor: default;
+        }
+    }
+
+    @each $name, $color in $contexts {
+
+        &.#{$name} .sorbet-input {
+            $shadow: set-val($insetShadow, 'c', saturate($color, 30%));
+
+            box-shadow: shadow-map-to-props($shadow);
+            background-color: lighten($color, 40%);
+
+            transition: $defaultTransitionProps;
+
+            &:focus {
+                $shadowColor: darken(saturate($color, 30%), 10%);
+                $shadowBlur: get-val($insetShadow, 'b') + 5px;
+
+                $shadow: set-val($insetShadow, 'c', $color);
+                $shadow: set-val($shadow, 'b', $shadowBlur);
+
+                box-shadow: shadow-map-to-props($shadow);
+            }
+
+            &:focus ~ .sorbet-label {
+                cursor: default;
+
+                color: $color;
+            }
+        }
+    }
 }
 
 .sorbet-label {
+    position: absolute;
 
+    top: 0.625vh;
+    left: 0.625vw;
+
+    cursor: text;
+
+    color: darken($elementShadowColor, 100%);
+
+    z-index: 1;
 }
 
 .sorbet-input {
+    position: relative;
+
+    top: 0;
+    left: 0;
+
     width: 10vw;
     height: 2.5vh;
 
-    font-size: 1.5vh;
+    padding-top: 0.25vmin;
+    padding-bottom: 0.25vmin;
+    padding-left: 0.75vmin;
+    padding-right: 0.75vmin;
 
-    @each $name, $color in $contexts {
-        &.#{$name} {
-            border-color: $color;
-        }
-    }
+    background-color: opacify(mix($elementBg, $elementShadowColor), 1);
+    border-radius: 3px;
+
+    border: none;
+    outline: 0;
+
+    font-size: 1.5vh;
+    color: darken($elementShadowColor, 50%);
+
+    box-shadow: shadow-map-to-props($insetShadow);
+
+    transition: $defaultTransitionProps;
+
+    @include active-placeholder-shift('.sorbet-label');
 }

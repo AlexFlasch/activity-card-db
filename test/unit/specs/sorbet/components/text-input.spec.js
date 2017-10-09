@@ -1,6 +1,6 @@
 import TextInput from '@/components/sorbet/components/TextInput';
 
-import { mount } from './../../util';
+import { mount } from './../../../util';
 
 describe('TextInput.vue', () => {
     it('should render correctly', () => {

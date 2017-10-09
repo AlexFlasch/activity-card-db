@@ -1,6 +1,6 @@
 import Card from '@/components/sorbet/components/Card';
 
-import { mount } from './../../util';
+import { mount } from './../../../util';
 
 describe('Card.vue', () => {
     it('should render properly', () => {

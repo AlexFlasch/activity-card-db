@@ -1,3 +1,5 @@
+@import "util/functions";
+
 // --- Colors ---
 $bodyBg: #DADFE1;
 $elementBg: #F2F1EF;
@@ -26,9 +28,13 @@ $contexts: (
 $fontFamily: 'Raleway';
 $fontSize: 1.1rem;
 $defaultFontWeight: 300;
+$lightFontColor: $elementBg;
+$darkFontColor: opacify($elementShadowColor, 1);
 
 // --- Animations & Transitions ---
 $transitionProperty: all;
 $transitionDuration: .333s;
 $transitionTiming: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-$defaultTransitionProps: $transitionProperty $transitionDuration $transitionTiming;
+$transitionDelay: 0s;
+$transitionMap: create-transition-map($transitionProperty, $transitionDuration, $transitionTiming, $transitionDelay);
+$defaultTransitionProps: transition-map-to-props($transitionMap);

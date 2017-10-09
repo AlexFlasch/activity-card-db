@@ -4,38 +4,53 @@
 
     // anti-alias fix
     transform: translate3d(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.lignt,
+    &.light::before,
+    &.light::after {
+        color: $lightFontColor;
+    }
+
+    &.dark,
+    &.dark::before,
+    &.dark::after {
+        color: $darkFontColor;
+    }
 
     &.xs {
-        width: 12px;
-        height: 12px;
+        // width: 12px;
+        // height: 12px;
 
         font-size: $fontSize / 4;
     }
 
     &.sm {
-        width: 24px;
-        height: 24px;
+        // width: 24px;
+        // height: 24px;
 
         font-size: $fontSize / 2;
     }
 
     &.md {
-        width: 36px;
-        height: 36px;
+        // width: 36px;
+        // height: 36px;
 
         font-size: $fontSize;
     }
 
     &.lg {
-        width: 48px;
-        height: 48px;
+        // width: 48px;
+        // height: 48px;
 
         font-size: $fontSize * 2;
     }
 
     &.xl {
-        width: 60px;
-        height: 60px;
+        // width: 60px;
+        // height: 60px;
 
         font-size: $fontSize * 4;
     }

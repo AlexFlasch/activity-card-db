@@ -47,8 +47,8 @@
                 @include hover-rise();
                 @include hover-shadow-rise($contextShadows);
                 @include hover-inner-glow($contextShadows, $color);
-                @include active-rise();
-                @include active-shadow-rise($contextShadows);
+                @include active-lower();
+                @include active-shadow-lower($contextShadows);
                 @include active-inner-glow($contextShadows, $color);
             }
         }

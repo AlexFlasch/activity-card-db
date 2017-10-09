@@ -1,8 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron'; // eslint-disable-line
-import fs from 'fs';
-import csv from 'csv';
 
-import csvColumns from './../../static/csv-columns.json';
+import * as csv from './system/csv-handler';
 
 /**
 * Set `__static` path to static files in production
@@ -17,7 +15,7 @@ const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`;
 
-function createWindow() {
+async function createWindow() {
     /**
     * Initial window options
     */
@@ -26,6 +24,12 @@ function createWindow() {
         useContentSize: true,
         width: 1000,
     });
+
+    const files = await csv.getCSVFiles();
+    const columns = await csv.getCSVColumns();
+
+    mainWindow.csvFiles = files;
+    mainWindow.csvColumns = columns;
 
     mainWindow.loadURL(winURL);
 
@@ -48,62 +52,20 @@ app.on('activate', () => {
     }
 });
 
-function getCSVFiles() {
-    const files = fs.readdir('./../../static/csv/', (err, files) => files);
+ipcMain.on('get-csv-files', (event) => {
+    const files = csv.getCSVFiles();
+    event.sender.send('found-csv-files', files);
+});
 
-    // debugger;
-    return files;
-}
+ipcMain.on('get-csv-file', async (event, arg) => {
+    const file = await csv.getCSVFile(arg);
+    event.sender.send('found-csv-file', file);
+});
 
-async function getCSVFile(fileName) {
-    const csvContents = fs.readFileSync(`./../../static/csv/${fileName}`);
-
-    // columns: true tells the parser to auto-discover the column names
-    // using the header line in the csv file
-    const parser = csv.parse(csvContents, { columns: true });
-
-    const csvArr = [];
-
-    parser.on('readable', () => {
-        const record = parser.read();
-
-        // debugger;
-
-        // record will be null if it has reached the
-        // end of the readable stream
-        // as long as its not null, push the record
-        if(record) {
-            csvArr.push(record);
-        }
-    });
-
-    await parser.on('finish', () => parser.end());
-
-    return csvArr;
-}
-
-function generateCSVFile(fileName) {
-    // take all keys in the csv-columns.json file, join them
-    // into a single string with a comma separating each key's name.
-    const csvHeader = Object.keys(csvColumns).join(',');
-
-    return fs.writeFile(`./../../static/csv/${fileName}`, csvHeader, (err) => {
-        if(err) {
-            // console.err(err);
-
-            // log error and let renderer know that something bad happened
-            return false;
-        }
-
-        return true;
-    });
-}
-
-ipcMain.on('get-csv-files', () => getCSVFiles());
-
-ipcMain.on('get-csv-file', (event, arg) => getCSVFile(arg));
-
-ipcMain.on('create-csv-file', (event, arg) => generateCSVFile(arg));
+ipcMain.on('create-csv-file', (event, arg) => {
+    const success = csv.generateCSVFile(arg);
+    event.sender.send('csv-file-created', success);
+});
 
 /**
  * Auto Updater

@@ -1,0 +1,56 @@
+@import "../util/functions";
+@import "../util/mixins";
+@import "../settings";
+
+$primaryColor: get-val($contexts, 'primary');
+$shadowMap: create-shadow-map(0px, 3px, 15px, 0px, transparentize($primaryColor, 0.4));
+$insetMap: create-shadow-map(0px, 2px, 20px, 0px, saturate($primaryColor, 0.3), inset);
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 5vmin;
+    min-height: 60px;
+
+    padding-left: 1%;
+    padding-right: 1%;
+
+    background-color: lighten($primaryColor, 5%);
+
+    $shadowProps: shadow-map-to-props($shadowMap);
+    $insetProps: shadow-map-to-props($insetMap);
+
+    @include multi-box-shadow($shadowProps, $insetProps);
+
+    & .left,
+    & .center,
+    & .right {
+        display: flex;
+        flex-grow: 10;
+        justify-content: space-between;
+        align-items: center;
+
+        height: 100%;
+    }
+
+    @each $name, $color in $contexts {
+        &.#{$name} {
+            $contextShadow: set-val($shadowMap, 'c', transparentize($color, 0.4));
+            $contextInset: set-val($insetMap, 'c', saturate($color, 0.3));
+
+            background-color: $color;
+
+            $shadowProps: shadow-map-to-props($contextShadow);
+            $insetProps: shadow-map-to-props($contextInset);
+
+            @include multi-box-shadow($shadowProps, $insetProps);
+        }
+    }
+}

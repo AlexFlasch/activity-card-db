@@ -11,6 +11,11 @@ export default new Router({
             component: require('@/pages/Home.vue'),
         },
         {
+            path: '/view/:filename',
+            name: 'view',
+            component: require('@/pages/YearData.vue'),
+        },
+        {
             path: '*',
             redirect: '/',
         },

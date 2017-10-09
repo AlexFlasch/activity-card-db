@@ -4,10 +4,10 @@
 
 <template>
     <label class="sorbet input-container">
+        <input class="sorbet-input" :class="classes" :type="type" :value="value" @input="updateModel($event.target.value)">
         <span class="sorbet-label">
             {{ label }}
         </span>
-        <input class="sorbet-input" :type="type" :value="val">
     </label>
 </template>
 
@@ -23,8 +23,8 @@
     export default {
         name: 'text-input',
         model: {
-            prop: 'val',
-            event: 'change',
+            prop: 'value',
+            event: 'input',
         },
         props: {
             type: {
@@ -35,7 +35,7 @@
                     return inputTypes.includes(val);
                 },
             },
-            val: {
+            value: {
                 type: String,
                 required: false,
                 default: '',
@@ -44,6 +44,18 @@
                 type: String,
                 required: false,
                 default: '',
+            },
+        },
+        methods: {
+            updateModel(modelVal) {
+                this.$emit('input', modelVal);
+            },
+        },
+        computed: {
+            classes() {
+                return {
+                    active: this.value.length > 0,
+                };
             },
         },
     };

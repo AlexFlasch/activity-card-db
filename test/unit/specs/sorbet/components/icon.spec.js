@@ -1,6 +1,6 @@
 import Icon from '@/components/sorbet/components/Icon';
 
-import { mount } from './../../util';
+import { mount } from './../../../util';
 
 describe('Icon.vue', () => {
     it('should render correctly as icon-font', () => {

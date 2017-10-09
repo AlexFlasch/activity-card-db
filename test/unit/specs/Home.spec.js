@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-// import { inspect } from 'util';
-
 import HomePage from '@/pages/Home';
-import { mount, simulate } from './../util';
+import { mount } from './../util';
 
 describe('Home.vue', () => {
     let store;
@@ -53,16 +51,6 @@ describe('Home.vue', () => {
         const vm = mount(HomePage, { store });
 
         expect(vm.$el.querySelector('.add-year').textContent).to.contain('Add a new year');
-    });
-
-    it('should show modal component', () => {
-        const vm = mount(HomePage, { store });
-
-        const addYearEl = vm.$el.querySelector('.add-year');
-
-        simulate(addYearEl, 'click');
-
-        expect(vm.modalOpen).to.equal(true);
     });
 
     it('should render cards for each year', () => {

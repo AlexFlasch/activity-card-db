@@ -20,7 +20,7 @@
                 <slot name="footer"></slot>
             </div>
         </div>
-        <div class="modal-backdrop" :class="classes" @click="backdropClick()" v-frost></div>
+        <div class="modal-backdrop" :class="classes" @click="backdropClick()" v-frost="5"></div>
     </div>
 </template>
 
