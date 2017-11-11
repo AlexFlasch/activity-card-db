@@ -3,18 +3,34 @@
 </style>
 
 <template>
-    <div class="grid-container">
-        <div class="grid-header">
-            <div class="grid-column-title" v-for="column in columns">
-                {{ column.title }}
-            </div>
-        </div>
-        <div class="grid-body">
-            <div class="grid-row" v-for="row in rows">
-
-            </div>
-        </div>
-    </div>
+    <table class="grid-container">
+        <thead class="grid-header">
+            <th class="grid-column-title" v-for="(column, colIndex) in columns" :key="colIndex">
+                {{ column.title || column }}
+            </th>
+        </thead>
+        <tbody class="grid-body" v-if="this.rows.length > 0">
+            <tr class="grid-row" v-for="(row, rowIndex) in rows" :key="rowIndex">
+                <td class="grid-cell" v-for="(value, valueIndex) in getRowValues(row)" :key="valueIndex">
+                    <div slot-scope="number" v-if="typeof value === 'number'" :val="value">
+                        {{ value }}
+                    </div>
+                    <div slot-scope="string" v-if="typeof value === 'string'" :val="value">
+                        {{ value }}
+                    </div>
+                    <div slot-scope="boolean" v-if="typeof value === 'boolean'" :val="value">
+                        <span v-if="value === true">
+                            ✔
+                        </span>
+                        <span v-else>
+                            ✗
+                        </span>
+                    </div>
+                    <div v-else><!-- The value was a Symbol, null, or undefined --></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script>
@@ -31,15 +47,9 @@
 
                     let validColumns = true;
 
-                    val.forEach((col) => {
-                        // find required properties of column obj
-                        if(col.title === undefined) {
-                            validColumns = false;
-                        }
-                        if(col.type === undefined) {
-                            validColumns = false;
-                        }
-                    });
+                    if(!Array.isArray(val)) {
+                        validColumns = false;
+                    }
 
                     return validColumns;
                 },
@@ -62,35 +72,24 @@
                 },
             },
         },
-        created() {
-            let columns = this.columns;
-            let rows = this.rows;
+        methods: {
+            getRowValues(row) {
+                if(!row) {
+                    return {};
+                }
 
-            if(typeof columns === 'string') {
-                columns = JSON.parse(columns);
-            }
-            if(typeof rows === 'string') {
-                rows = JSON.parse(rows);
-            }
-
-            // validate the rows by the columns that were supplied
-            let invalidRows = false;
-
-            rows.forEach((row) => {
-                row.forEach((val, i) => {
-                    if(typeof row[val] !== typeof Object.values(columns)[i]) {
-                        invalidRows = true;
+                return Object.values(row).map((val) => {
+                    if(val === 'true' || val === 'false') {
+                        // convert boolean string to boolean primitive
+                        val = !!val;
+                    } else if(!isNaN(val)) {
+                        // convert valid number string to number primitive
+                        val = +val;
                     }
-                });
-            });
 
-            if(invalidRows) {
-                /* eslint-disable no-console */
-                console.warn(`Sorbet grid's rows array did not match the supplied columns array.\n
-                    Make sure that the order in which you define the columns matches the order the
-                    values are specified in the rows array`);
-                /* eslint-enable no-console */
-            }
+                    return val;
+                });
+            },
         },
     };
 </script>

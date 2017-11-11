@@ -34,6 +34,10 @@
             }
         }
     }
+
+    .input-container {
+        width: 25%;
+    }
 </style>
 
 <template>
@@ -44,9 +48,20 @@
                 <p>{{ stripFileExtension(this.selectedCsvFile) }}</p>
             </div>
         </navbar>
+        <card class="add-card">
+            <text-input type="text" label="First Name" :value="firstName"></text-input>
+            <text-input type="text" label="Last Name" :value="lastName"></text-input>
+            <!-- <checkbox></checkbox> -->
+            <btn class="primary">
+                <icon name="fe-plus" size="med" color="light"></icon>
+                Add
+            </btn>
+        </card>
         <card class="centered">
-            <p v-if="rows.length === 0">Looks like there's nothing here yet...</p>
-            <grid :rows="rows" :columns="columns">
+            <p v-if="Object.keys(rows).length === 0">
+                Looks like there's nothing here yet...
+            </p>
+            <grid v-else :rows="rows" :columns="columns">
             </grid>
         </card>
     </div>
@@ -57,15 +72,13 @@
 
     export default {
         data() {
-            return { };
+            return {
+                firstName: '',
+                lastName: '',
+                paid: false,
+            };
         },
         computed: {
-            columnsArr() {
-                return JSON.parse(this.columns);
-            },
-            rowsArr() {
-                return JSON.parse(this.rows);
-            },
             ...mapGetters([
                 'selectedCsvFile',
                 'columns',

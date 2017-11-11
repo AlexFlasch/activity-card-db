@@ -1,3 +1,7 @@
 @mixin multi-box-shadow($shadows...) {
     box-shadow: $shadows;
 }
+
+@mixin sorbet-shadow($hOffset: 0px, $vOffset: 3px, $blur: 15px, $spread: 0px, $color: rgba(108, 122, 137, 0.4), $inset: '') {
+    box-shadow: #{$inset} #{$hOffset} #{$vOffset} #{$blur} #{$spread} #{$color};
+}

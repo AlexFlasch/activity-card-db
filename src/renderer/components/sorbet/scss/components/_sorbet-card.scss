@@ -1,98 +1,97 @@
 @import '../settings';
 @import '../util/functions';
 
-.sorbet {
+.card-container {
+    display: flex;
 
-    &.card-container {
-        display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
 
-        flex-direction: row;
-        justify-content: center;
-        align-content: center;
-        flex-wrap: nowrap;
+    background-color: $elementBg;
 
-        background-color: $elementBg;
+    border-width: 1px;
+    border-style: solid;
+    border-color: darken($elementBg, 0.5%);
+    border-radius: 10px;
 
+    box-shadow: 0px 3px 15px 0px rgba(108, 122, 137, 0.4);
+
+    box-sizing: border-box;
+
+    margin: 2.5vmin;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
+
+    min-height: 90px;
+    min-width: 90px;
+
+    transition: $defaultTransitionProps;
+
+    &.depth-0 {
+        background-color: transparent;
+
+        color: darken($bodyBg, 30%);
+
+        border-color: darken($bodyBg, 7.5%);
         border-width: 1px;
         border-style: solid;
-        border-color: darken($elementBg, 0.5%);
         border-radius: 10px;
 
-        box-shadow: 0px 3px 15px 0px rgba(108, 122, 137, 0.4);
-
-        box-sizing: border-box;
-
-        margin: 2.5vmin;
-        padding-left: 2.5vw;
-        padding-right: 2.5vw;
-        padding-top: 2.5vh;
-        padding-bottom: 2.5vh;
-
-        min-height: 90px;
-        min-width: 90px;
+        box-shadow: none;
 
         transition: $defaultTransitionProps;
+    }
 
-        &.depth-0 {
-            background-color: transparent;
+    @for $i from 1 through 5 {
+        &.depth-#{$i} {
+            $shadowMap: create-shadow-map(0px, 3px, #{5 * $i + 15}px, 0px, $elementShadowColor);
+            box-shadow: shadow-map-to-props($shadowMap);
 
-            color: darken($bodyBg, 30%);
-
-            border-color: darken($bodyBg, 7.5%);
-            border-width: 1px;
-            border-style: solid;
-            border-radius: 10px;
-
-            box-shadow: none;
-
-            transition: $defaultTransitionProps;
-        }
-
-        @for $i from 1 through 5 {
-            &.depth-#{$i} {
-                $shadowMap: create-shadow-map(0px, 3px, #{5 * $i + 15}px, 0px, $elementShadowColor);
+            &.hover:hover {
+                $currentShadowBlur: get-val($shadowMap, 'b');
+                $currentShadowSpread: get-val($shadowMap, 's');
+                $currentShadowVOffset: get-val($shadowMap, 'v');
+                $shadowMap: set-val($shadowMap, 'b', calc(#{$currentShadowBlur} + 3px));
+                $shadowMap: set-val($shadowMap, 's', calc(#{$currentShadowSpread} + 3px));
+                $shadowMap: set-val($shadowMap, 'v', calc(#{$currentShadowVOffset} + 3px));
                 box-shadow: shadow-map-to-props($shadowMap);
 
-                &.hover:hover {
-                    $currentShadowBlur: get-val($shadowMap, 'b');
-                    $currentShadowSpread: get-val($shadowMap, 's');
-                    $currentShadowVOffset: get-val($shadowMap, 'v');
-                    $shadowMap: set-val($shadowMap, 'b', calc(#{$currentShadowBlur} + 3px));
-                    $shadowMap: set-val($shadowMap, 's', calc(#{$currentShadowSpread} + 3px));
-                    $shadowMap: set-val($shadowMap, 'v', calc(#{$currentShadowVOffset} + 3px));
-                    box-shadow: shadow-map-to-props($shadowMap);
-
-                    transform: translateY(calc(-1 * #{$currentShadowVOffset} - 3px));
-
-                    transition: $defaultTransitionProps;
-                }
+                transform: translateY(calc(-1 * #{$currentShadowVOffset} - 3px));
 
                 transition: $defaultTransitionProps;
             }
-        }
 
-        &.centered > .card-content {
-            display: flex;
-            flex-grow: unset;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            width: 100%;
-            height: 100%;
-        }
-
-        .card-content {
-            width: 100%;
-            height: 100%;
-        }
-
-        .icon ~ .card-content {
-            margin-left: 1.5vw;
-        }
-
-        &.centered > .icon ~ .card-content {
-            width: auto;
+            transition: $defaultTransitionProps;
         }
     }
+
+    .icon ~ .card-content {
+        margin-left: 1.5vw;
+    }
+
+    &.centered > .icon ~ .card-content {
+        width: auto;
+    }
+}
+
+.card-content {
+    width: 100%;
+    height: 100%;
+
+    cursor: default;
+}
+
+.centered .card-content {
+    display: flex;
+    flex-grow: unset;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
 }

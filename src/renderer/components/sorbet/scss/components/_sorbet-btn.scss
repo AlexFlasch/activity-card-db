@@ -14,44 +14,46 @@
     );
 }
 
-.sorbet {
-    &.btn {
-        position: relative;
-        display: inline-block;
+.btn {
+    position: relative;
+    display: inline-block;
 
-        cursor: pointer;
+    cursor: pointer;
 
-        width: auto;
-        height: auto;
+    width: auto;
+    height: auto;
 
-        padding-left: 1.75vw;
-        padding-right: 1.75vw;
-        padding-top: 0.65vh;
-        padding-bottom: 0.65vh;
+    padding-left: 1.75vw;
+    padding-right: 1.75vw;
+    padding-top: 0.65vh;
+    padding-bottom: 0.65vh;
 
-        margin: 10px;
+    margin: 10px;
 
-        border-radius: 50px;
+    border-radius: 50px;
 
-        background-clip: padding-box;
+    background-clip: padding-box;
 
-        @each $name, $color in $contexts {
-            $contextShadows: create-context-shadows($color);
-            $contextDrop: shadow-map-to-props(nth($contextShadows, 1));
-            $contextGlow: shadow-map-to-props(nth($contextShadows, 2));
+    @each $name, $color in $contexts {
+        $contextShadows: create-context-shadows($color);
+        $contextDrop: shadow-map-to-props(nth($contextShadows, 1));
+        $contextGlow: shadow-map-to-props(nth($contextShadows, 2));
 
-            &.#{$name} {
-                background-color: $color;
-                box-shadow: multi-box-shadow($contextDrop, $contextGlow);
+        &.#{$name} {
+            background-color: $color;
+            box-shadow: #{multi-box-shadow($contextDrop, $contextGlow)};
 
-                @include hover-rise();
-                @include hover-shadow-rise($contextShadows);
-                @include hover-inner-glow($contextShadows, $color);
-                @include active-lower();
-                @include active-shadow-lower($contextShadows);
-                @include active-inner-glow($contextShadows, $color);
-            }
+            @include hover-rise();
+            @include hover-shadow-rise($contextShadows);
+            @include hover-inner-glow($contextShadows, $color);
+            @include active-lower();
+            @include active-shadow-lower($contextShadows);
+            @include active-inner-glow($contextShadows, $color);
         }
+    }
+
+    .icon {
+        display: inline-block;
     }
 
     &.light-text {

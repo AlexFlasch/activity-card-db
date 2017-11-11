@@ -12,7 +12,6 @@
               v-for="filename in csvFiles"
               :key="filename"
               @click.native="viewFile(filename)">
-            <reveal class="centered" :open.sync=""
             <icon slot="primary-icon" name="fe-file" color="dark"></icon>
             View {{ stripFileExtension(filename) }}
         </card>
@@ -20,7 +19,7 @@
             <reveal class="centered" :open.sync="revealed" :class="{ 'error': addFileErr }">
                 <text-input label="Year" type="text" v-model="filename"></text-input>
                 <btn v-context="'primary'" @click.native="addYear()">
-                    <icon name="fe-check" size="med" color="dark"></icon>
+                    <icon name="fe-check" size="med" color="light"></icon>
                 </btn>
             </reveal>
             <icon slot="primary-icon" name="fe-plus-circle" size="large"></icon>
@@ -61,12 +60,13 @@
                 return filename.substr(0, filename.lastIndexOf('.')) || filename;
             },
             viewFile(filename) {
-                this.$store.dispatch('selectCsvFile', filename);
+                this.selectCsvFile(filename);
                 this.$router.push(`/view/${filename}`);
             },
             ...mapActions([
                 'getCsvFiles',
                 'addCsvFile',
+                'selectCsvFile',
             ]),
         },
         computed: {

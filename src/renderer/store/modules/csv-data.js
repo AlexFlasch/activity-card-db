@@ -9,7 +9,7 @@ const state = {
 function noop() { }
 
 const mutations = {
-    SELECT_FILE(state, filename, rows) {
+    SELECT_FILE(state, { filename, rows }) {
         state.selectedCsvFile = filename;
         state.rows = rows;
     },
@@ -55,7 +55,7 @@ const actions = {
             if(arg === false) {
                 noop();
             } else {
-                commit('SELECT_FILE', filename, arg);
+                commit('SELECT_FILE', { filename, rows: arg });
             }
         });
     },
@@ -108,10 +108,11 @@ const getters = {
         return state.selectedCsvFile;
     },
     columns(state) {
-        return state.columns;
+        return state.columns.map(column => column.title);
     },
     rows(state) {
-        return state.rows;
+        // TODO: change this once we figure out what the actual property is
+        return Object.values(state.rows);
     },
 };
 

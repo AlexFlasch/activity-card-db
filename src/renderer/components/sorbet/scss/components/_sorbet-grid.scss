@@ -1,11 +1,59 @@
-
+@import "../index";
 
 .grid-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
     width: 100%;
     height: 100%;
+
+    border-collapse: collapse;
+}
+
+.grid-header {
+    width: 100%;
+    background-color: $elementShadowColor;
+
+    @include sorbet-shadow();
+}
+
+.grid-column-title {
+    padding: 0.75em 0;
+
+    &:first-child {
+        border-top-left-radius: 5px;
+    }
+
+    &:last-child {
+        border-top-right-radius: 5px;
+    }
+
+    &:not(:last-child) {
+        border-right: 1px solid darken($elementShadowColor, 2.5%);
+    }
+}
+
+.grid-body {
+    width: 100%;
+}
+
+.grid-row {
+    width: 100%;
+    padding: 0.75em 0;
+
+    &:nth-child(odd) {
+        background-color: lighten($elementShadowColor, 25%);
+    }
+
+    &:last-child {
+        .grid-cell:first-child {
+            border-bottom-left-radius: 5px;
+        }
+
+        .grid-cell:last-child {
+            border-bottom-right-radius: 5px;
+        }
+    }
+}
+
+.grid-cell {
+    padding: 0.75em 0;
+    padding-left: 1em;
 }

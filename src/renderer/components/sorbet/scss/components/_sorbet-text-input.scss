@@ -3,7 +3,7 @@
 @import "../animations/active";
 @import "../animations/hover";
 
-$insetShadow: create-shadow-map(0px, 1px, 15px, 0px, $elementShadowColor, inset);
+$insetShadow: create-shadow-map(0px, 1px, 10px, 0px, $elementShadowColor, inset);
 
 .sorbet.input-container {
     position: relative;
@@ -11,6 +11,7 @@ $insetShadow: create-shadow-map(0px, 1px, 15px, 0px, $elementShadowColor, inset)
     display: inline-block;
 
     height: 2.5vh;
+    margin: 1vmin;
 
     & .sorbet-input:focus {
         $shadowColor: get-val($insetShadow, 'c');
@@ -77,19 +78,14 @@ $insetShadow: create-shadow-map(0px, 1px, 15px, 0px, $elementShadowColor, inset)
     top: 0;
     left: 0;
 
-    width: 10vw;
     height: 2.5vh;
 
-    padding-top: 0.25vmin;
-    padding-bottom: 0.25vmin;
-    padding-left: 0.75vmin;
-    padding-right: 0.75vmin;
+    padding: 0.25vmin 0.75vmin;
 
-    background-color: opacify(mix($elementBg, $elementShadowColor), 1);
+    background-color: opacify(mix($elementBg, $elementShadowColor, 75%), 1);
     border-radius: 3px;
 
     border: none;
-    outline: 0;
 
     font-size: 1.5vh;
     color: darken($elementShadowColor, 50%);
