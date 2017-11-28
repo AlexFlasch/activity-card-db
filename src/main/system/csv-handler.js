@@ -92,3 +92,24 @@ export function generateCSVFile(fileOptions) {
 
     return result;
 }
+
+export function addRowToCSVFile(filename, rawRow) {
+    const row = `${rawRow.firstName},${rawRow.lastName},${rawRow.paid}\n`;
+
+    let result = true;
+
+    try {
+        fs.appendFileSync(path.join(__dirname, `./../../../static/csv/${filename}`), row);
+    } catch(err) {
+        if(err) {
+            /* eslint-disable no-console */
+            console.error(err);
+            /* eslint-enable no-console */
+
+            // log error and let renderer know something bad happened
+            result = false;
+        }
+    }
+
+    return result;
+}

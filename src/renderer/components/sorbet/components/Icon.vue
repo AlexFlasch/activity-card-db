@@ -1,4 +1,4 @@
-<style scoped lang="scss">
+<style lang="scss">
     @import "../scss/components/sorbet-icon";
 </style>
 
@@ -42,6 +42,13 @@
     const fontColors = [
         'light',
         'dark',
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'error',
+        'default',
     ];
 
     export default {
@@ -119,9 +126,9 @@
                     iconSize = 'xl';
                 }
 
-                let iconColor = '';
+                let iconColor;
 
-                if(this.color === 'dark' || this.color === 'light') {
+                if(fontColors.includes(this.color)) {
                     iconColor = this.color;
                 }
 
@@ -131,30 +138,6 @@
                     iconSize,
                     iconColor,
                 ];
-            },
-            styles() {
-                let iconColor = '';
-
-                if(this.color !== 'dark' || this.color !== 'light') {
-                    iconColor = this.color;
-                }
-
-                const iconFontStyles = {
-                    color: iconColor,
-                };
-
-                const svgFontStyles = {
-                    fill: iconColor,
-                };
-
-                switch(this.iconType) {
-                    case 'icon-font':
-                        return iconFontStyles;
-                    case 'svg':
-                        return svgFontStyles;
-                    default:
-                        return iconFontStyles;
-                }
             },
         },
     };

@@ -16,6 +16,7 @@
 
 .grid-column-title {
     padding: 0.75em 0;
+    color: darken($elementShadowColor, 95%);
 
     &:first-child {
         border-top-left-radius: 5px;
@@ -39,7 +40,7 @@
     padding: 0.75em 0;
 
     &:nth-child(odd) {
-        background-color: lighten($elementShadowColor, 25%);
+        background-color: lighten($elementShadowColor, 35%);
     }
 
     &:last-child {

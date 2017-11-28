@@ -19,6 +19,14 @@
         color: $darkFontColor;
     }
 
+    @each $context, $color in $contexts {
+        &.#{$context},
+        &.#{$context}::before,
+        &.#{$context}::after {
+            color: $color;
+        }
+    }
+
     &.xs {
         // width: 12px;
         // height: 12px;

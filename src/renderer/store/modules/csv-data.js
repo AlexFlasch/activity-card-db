@@ -74,8 +74,8 @@ const actions = {
                 : noop();
         });
     },
-    addRow({ commit }, row) {
-        ipcRenderer.send('add-row', row);
+    addRow({ commit, state }, row) {
+        ipcRenderer.send('add-row', { filename: state.selectedCsvFile, row });
 
         ipcRenderer.once('row-added', (event, arg) => {
             arg === true

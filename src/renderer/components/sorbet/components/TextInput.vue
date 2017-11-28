@@ -1,4 +1,4 @@
-<style scoped lang="scss">
+<style lang="scss">
     @import "../scss/components/sorbet-text-input";
 </style>
 

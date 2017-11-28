@@ -79,6 +79,10 @@ let rendererConfig = {
         }
       },
       {
+        test: /\.(raw).(svg)(\?.*)?$/,
+        use: 'raw-loader'
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: 'url-loader',

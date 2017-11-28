@@ -6,6 +6,7 @@ import * as TextInput from './TextInput';
 import * as Reveal from './Reveal';
 import * as Navbar from './Navbar';
 import * as Grid from './Grid';
+import * as Checkbox from './Checkbox';
 
 export default {
     Btn,
@@ -16,4 +17,5 @@ export default {
     Reveal,
     Navbar,
     Grid,
+    Checkbox,
 };

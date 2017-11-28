@@ -20,9 +20,11 @@ async function createWindow() {
     * Initial window options
     */
     mainWindow = new BrowserWindow({
-        height: 563,
+        height: 750,
         useContentSize: true,
-        width: 1000,
+        width: 650,
+        resizable: false,
+        maximizable: false,
     });
 
     const files = await csv.getCSVFiles();
@@ -65,6 +67,11 @@ ipcMain.on('get-csv-file', async (event, arg) => {
 ipcMain.on('create-csv-file', (event, arg) => {
     const success = csv.generateCSVFile(arg);
     event.sender.send('csv-file-created', success);
+});
+
+ipcMain.on('add-row', (event, arg) => {
+    const success = csv.addRowToCSVFile(arg.filename, arg.row);
+    event.sender.send('row-added', success);
 });
 
 /**

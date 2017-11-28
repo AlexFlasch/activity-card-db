@@ -15,6 +15,14 @@ export default new Router({
             name: 'view',
             component: require('@/pages/YearData.vue'),
         },
+        // {
+        //     path: '/print',
+        //     name: 'print',
+        //     component: require('@/components/ActivityCard.vue'),
+        //     props(route) {
+        //         return route.query || {};
+        //     },
+        // },
         {
             path: '*',
             redirect: '/',

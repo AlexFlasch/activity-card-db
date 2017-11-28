@@ -22,10 +22,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
     }
-
-    #app {
-        margin: 5px;
-    }
 </style>
 
 <template>

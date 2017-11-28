@@ -10,9 +10,10 @@ $insetShadow: create-shadow-map(0px, 1px, 10px, 0px, $elementShadowColor, inset)
 
     display: inline-block;
 
-    height: 2.5vh;
+    height: 35px;
     margin: 1vmin;
 
+    & .sorbet-input.active,
     & .sorbet-input:focus {
         $shadowColor: get-val($insetShadow, 'c');
         $shadowColor: darken(saturate($shadowColor, 30%), 10%);
@@ -62,8 +63,8 @@ $insetShadow: create-shadow-map(0px, 1px, 10px, 0px, $elementShadowColor, inset)
 .sorbet-label {
     position: absolute;
 
-    top: 0.625vh;
-    left: 0.625vw;
+    top: 25%;
+    left: 5%;
 
     cursor: text;
 
@@ -78,7 +79,7 @@ $insetShadow: create-shadow-map(0px, 1px, 10px, 0px, $elementShadowColor, inset)
     top: 0;
     left: 0;
 
-    height: 2.5vh;
+    height: 35px;
 
     padding: 0.25vmin 0.75vmin;
 
