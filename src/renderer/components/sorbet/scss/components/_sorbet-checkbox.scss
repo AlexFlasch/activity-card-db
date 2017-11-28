@@ -1,0 +1,63 @@
+@import "../settings";
+@import "../util/functions";
+
+$insetShadow: create-shadow-map(0px, 1px, 10px, 0px, $elementShadowColor, inset);
+
+.checkbox-container {
+    position: relative;
+
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+
+    margin: 1vmin;
+
+    background-color: opacify(mix($elementBg, $elementShadowColor, 75%), 1);
+
+    border-radius: 3px;
+    box-shadow: shadow-map-to-props($insetShadow);
+
+    transition: $defaultTransitionProps;
+
+    &.checked {
+        $primaryColor: get-val($contexts, 'primary');
+        $checkGlowShadow: create-shadow-map(0px, 2px, 20px, 0px, saturate($primaryColor, 0.3), inset);
+
+        box-shadow: shadow-map-to-props($checkGlowShadow);
+        background-color: saturate(lighten($primaryColor, 10%), 25%);
+
+        transition: $defaultTransitionProps;
+
+        svg {
+            opacity: 1;
+
+            transition: $defaultTransitionProps;
+        }
+    }
+
+    & > input:focus {
+        box-shadow: shadow-map-to-props(create-shadow-map());
+    }
+
+    input[type=checkbox] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        margin: 0;
+
+        opacity: 0;
+
+        z-index: 1;
+
+        cursor: pointer;
+    }
+
+    svg {
+        position: absolute;
+
+        opacity: 0;
+
+        transition: $defaultTransitionProps;
+    }
+}
